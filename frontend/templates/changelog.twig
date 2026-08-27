@@ -16,57 +16,95 @@
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
                             <li class="mb-3">
+                                <strong>Aug 27, 2026 (v4.8.5)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Automatic fail-safe and circuit breaker protection to prevent server hanging when third-party video hosts or Google Drive API experience outages or rate limits.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Intelligent cache locking to prevent server overload during traffic spikes on cache misses.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Comprehensive open-source and commercial distribution guides and deployment documentation.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> DLHD Live Streaming Theme integration.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Smart fail-fast error handling for external video scrapers and Google Drive requests.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Enhanced high-performance data serialization and compression support in caching layer.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Strengthened security verification and encryption protocols for plugins.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Optimized dashboard status monitor performance and JavaScript assets.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Web server configuration templates with robust 404 error routing.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Cleaned up background task logging to reduce unnecessary disk write operations.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Enhanced upload directory protection and hardened video embed request validation.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mb-3">
                                 <strong>Aug 23, 2026 (v4.8.5)</strong>
                                 <ul>
-                                     <li>
-                                         <span class="text-bold text-success">Added</span> Yandex Metrika and Microsoft Clarity analytics tracking integration.
-                                     </li>
-                                     <li>
-                                         <span class="text-bold text-success">Added</span> Dedicated `/ping-service` endpoint and bypass cache flag in `PluginManager::isEngineAlive()`.
-                                     </li>
-                                     <li>
-                                         <span class="text-bold text-success">Added</span> Enhanced security header protection and dynamic theme auto-loader.
-                                     </li>
-                                     <li>
-                                         <span class="text-bold text-success">Added</span> Direct I/O (`ext-dio`) support for high-performance local file stream serving.
-                                     </li>
-                                     <li>
-                                         <span class="text-bold text-success">Added</span> Custom proxy server and bypass list configuration in Headless Chrome service.
-                                     </li>
-                                     <li>
-                                         <span class="text-bold text-success">Improved</span> Accurate Windows PID validation via `tasklist /FI` in `Background::isRunning()`.
-                                     </li>
-                                     <li>
-                                         <span class="text-bold text-success">Improved</span> Better IP validation and rate limit bypass capabilities across player requests.
-                                     </li>
-                                     <li>
-                                         <span class="text-bold text-success">Improved</span> Default theme file tracking and repository management.
-                                     </li>
-                                     <li>
-                                         <span class="text-bold text-success">Improved</span> Modular Nginx security headers and CORS preflight max-age caching.
-                                     </li>
-                                     <li>
-                                         <span class="text-bold text-success">Improved</span> Dynamic stream chunk sizing for large files (&gt;= 1GB) and background process termination by path.
-                                     </li>
-                                     <li>
-                                         <span class="text-bold text-success">Improved</span> Service worker offline asset caching lists and bundle asset scripts.
-                                     </li>
-                                     <li>
-                                         <span class="text-bold text-success">Improved</span> Refactored password reset email notification with modern responsive template.
-                                     </li>
-                                     <li>
-                                         <span class="text-bold text-primary">Fixed</span> Resolved password reset token validation and step page routing.
-                                     </li>
-                                     <li>
-                                         <span class="text-bold text-primary">Fixed</span> Crypto-JS script loading placement in player embed template head.
-                                     </li>
-                                     <li>
-                                         <span class="text-bold text-primary">Fixed</span> Resolved link decryption and stream URL generation for AWS Cloud storage.
-                                     </li>
-                                     <li>
-                                         <span class="text-bold text-primary">Fixed</span> Fixed layout header/footer injection and player embed page routing.
-                                     </li>
-                                 </ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Yandex Metrika and Microsoft Clarity analytics tracking integration.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Dedicated service health check ping endpoint.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Enhanced security header protection and dynamic theme auto-loader.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Direct I/O support for high-performance local file streaming.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Custom proxy server and bypass list configuration in Headless Chrome service.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Background process monitoring and validation on Windows environments.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Client IP validation and rate limit bypass capabilities across player requests.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Default theme file tracking and repository management.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Modular security headers and cross-origin resource sharing (CORS) preflight caching.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Dynamic stream chunk sizing for large files and graceful process termination.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Service worker offline asset caching lists and asset bundles.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Password reset email notification with a modern responsive template.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Password reset token validation and step page routing.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Script loading placement in player embed template.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Stream link decryption and video playback URL generation for AWS Cloud storage.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Page layout injection and player embed page routing.
+                                    </li>
+                                </ul>
                             </li>
                             <li class="mb-3">
                                 <strong>Aug 8, 2026 (v4.8.4)</strong>
@@ -752,6 +790,29 @@
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
                             <li class="mb-2">
+                                <strong>Aug 27, 2026 (v0.0.4)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Open-source and commercial distribution guides and deployment documentation.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored internal proxy architecture into modular helper services for better performance and maintainability.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Optimized instance routing and custom URL path handling in background worker.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Added cache driver compatibility validation in backend control panel.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Web server configuration template with robust 404 error routing.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Prevented background service daemon crash during server shutdown.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mb-2">
                                 <strong>Aug 13, 2026 (v0.0.4)</strong>
                                 <ul>
                                     <li>
@@ -835,6 +896,23 @@
                 <div id="collapseRoadrunner" class="collapse" aria-labelledby="headingRoadrunner" data-parent="#changelogAccordion">
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <strong>Aug 27, 2026 (v0.0.4)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Open-source and commercial distribution guides and deployment documentation.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Added cache driver compatibility validation supporting Redis and Memcached configurations.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Web server configuration template with robust 404 error routing.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Stream resolver stability, background worker lifecycle, and package dependencies.
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="mb-2">
                                 <strong>Aug 13, 2026 (v0.0.4)</strong>
                                 <ul>

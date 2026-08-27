@@ -7,12 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.0.1] - 2026-08-08
+## [0.0.1] - 2026-08-27
 
 ### Added
-- Added Custom Headers configuration to the backend navbar (`4d3d626`).
-- Updated Swoole and RoadRunner plugin changelog cards in the frontend theme (`defa004`).
-- Added changelog template updates for GDPlayer v4.8.4, Swoole v0.0.3, and RoadRunner v0.0.3 (`fb1737a`).
+- Updated changelog page template with comprehensive release notes for GDPlayer, Swoole Proxy, and RoadRunner Proxy plugins.
+- Added Custom Headers configuration to the backend navigation bar.
+- Updated Swoole and RoadRunner plugin changelog sections in the frontend theme.
+- Added release notes and changelog template updates for latest system releases.
 
 ### Fixed
 - Fixed raw advertisement handling in frontend views (`3cff287`).
