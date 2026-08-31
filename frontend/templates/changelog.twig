@@ -16,46 +16,20 @@
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
                             <li class="mb-3">
-                                <strong>Aug 27, 2026 (v4.8.5)</strong>
+                                <strong>Aug 28, 2026 (v4.8.5)</strong>
                                 <ul>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Automatic fail-safe and circuit breaker protection to prevent server hanging when third-party video hosts or Google Drive API experience outages or rate limits.
+                                        <span class="text-bold text-success">Added</span> Enhanced stream proxying with forwarded host header support.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Automatic fail-safe and circuit breaker protection to prevent server hanging during external video hosting outages or rate limits.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Intelligent cache locking to prevent server overload during traffic spikes on cache misses.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Comprehensive open-source and commercial distribution guides and deployment documentation.
+                                        <span class="text-bold text-success">Added</span> Direct I/O support for high-performance local file streaming.
                                     </li>
-                                    <li>
-                                        <span class="text-bold text-success">Added</span> DLHD Live Streaming Theme integration.
-                                    </li>
-                                    <li>
-                                        <span class="text-bold text-success">Improved</span> Smart fail-fast error handling for external video scrapers and Google Drive requests.
-                                    </li>
-                                    <li>
-                                        <span class="text-bold text-success">Improved</span> Enhanced high-performance data serialization and compression support in caching layer.
-                                    </li>
-                                    <li>
-                                        <span class="text-bold text-success">Improved</span> Strengthened security verification and encryption protocols for plugins.
-                                    </li>
-                                    <li>
-                                        <span class="text-bold text-success">Improved</span> Optimized dashboard status monitor performance and JavaScript assets.
-                                    </li>
-                                    <li>
-                                        <span class="text-bold text-success">Improved</span> Web server configuration templates with robust 404 error routing.
-                                    </li>
-                                    <li>
-                                        <span class="text-bold text-primary">Fixed</span> Cleaned up background task logging to reduce unnecessary disk write operations.
-                                    </li>
-                                    <li>
-                                        <span class="text-bold text-primary">Fixed</span> Enhanced upload directory protection and hardened video embed request validation.
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="mb-3">
-                                <strong>Aug 23, 2026 (v4.8.5)</strong>
-                                <ul>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Yandex Metrika and Microsoft Clarity analytics tracking integration.
                                     </li>
@@ -63,46 +37,46 @@
                                         <span class="text-bold text-success">Added</span> Dedicated service health check ping endpoint.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Enhanced security header protection and dynamic theme auto-loader.
-                                    </li>
-                                    <li>
-                                        <span class="text-bold text-success">Added</span> Direct I/O support for high-performance local file streaming.
-                                    </li>
-                                    <li>
                                         <span class="text-bold text-success">Added</span> Custom proxy server and bypass list configuration in Headless Chrome service.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Background process monitoring and validation on Windows environments.
+                                        <span class="text-bold text-success">Added</span> Deployment and distribution guides.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Client IP validation and rate limit bypass capabilities across player requests.
+                                        <span class="text-bold text-success">Improved</span> Overall system performance, code quality, and security hardening across video hosting extractors.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Default theme file tracking and repository management.
+                                        <span class="text-bold text-success">Improved</span> Faster cache initialization, reduced overhead, and high-performance serialization support.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Modular security headers and cross-origin resource sharing (CORS) preflight caching.
+                                        <span class="text-bold text-success">Improved</span> Accelerated video embed and download page rendering throughput.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Dynamic stream chunk sizing for large files and graceful process termination.
+                                        <span class="text-bold text-success">Improved</span> Background task processing reliability and process execution across server environments.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Service worker offline asset caching lists and asset bundles.
+                                        <span class="text-bold text-success">Improved</span> Plugin hooks, dynamic widgets, and strengthened security verification protocols.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Password reset email notification with a modern responsive template.
+                                        <span class="text-bold text-success">Improved</span> Modular security headers and Cross-Origin Resource Sharing (CORS) origin headers validation.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Web server configuration templates with improved 404 error routing.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Password reset email notifications with a modern responsive template.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Reduced background task disk write operations.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Hardened video embed request validation and upload directory protection.
                                     </li>
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Password reset token validation and step page routing.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-primary">Fixed</span> Script loading placement in player embed template.
-                                    </li>
-                                    <li>
-                                        <span class="text-bold text-primary">Fixed</span> Stream link decryption and video playback URL generation for AWS Cloud storage.
-                                    </li>
-                                    <li>
-                                        <span class="text-bold text-primary">Fixed</span> Page layout injection and player embed page routing.
+                                        <span class="text-bold text-primary">Fixed</span> Stream link decryption and playback URL generation for AWS Cloud storage.
                                     </li>
                                 </ul>
                             </li>
