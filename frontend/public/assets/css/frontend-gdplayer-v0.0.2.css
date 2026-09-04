@@ -201,6 +201,7 @@ option:disabled {
     min-width: 17px;
 }
 
+.bootstrap-dark .nav-pills .nav-link,
 #footer .nav-link,
 .navbar-dark .navbar-nav .nav-link {
     color: #fff;

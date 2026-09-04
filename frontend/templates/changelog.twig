@@ -16,10 +16,13 @@
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
                             <li class="mb-3">
-                                <strong>Sep 01, 2026 (v4.8.5)</strong>
+                                <strong>Sep 02, 2026 (v4.8.5)</strong>
                                 <ul>
                                     <li>
-                                        <span class="text-bold text-danger">Removed</span> The Tube, Gofile Hosts.
+                                        <span class="text-bold text-success">Added</span> Mailgun HTTP REST API mailer integration as an alternative email driver (bypassing SMTP port blocking).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Unified Email Driver &amp; Configuration in admin SMTP settings with dynamic switcher between SMTP and Mailgun.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Enhanced stream proxying with forwarded host header support.
@@ -70,6 +73,18 @@
                                         <span class="text-bold text-success">Improved</span> Password reset email notifications with a modern responsive template.
                                     </li>
                                     <li>
+                                        <span class="text-bold text-primary">Fixed</span> Naver TV extractor DOM parsing and VOD playback URL parameters.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Shared cURL DNS cache timeout tuning to prevent persistent negative DNS lookup errors on streaming proxies.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Database migration connection retry mechanism to ensure reliable CLI migration startup.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> HLS parser stream token handling and URL bypass logic.
+                                    </li>
+                                    <li>
                                         <span class="text-bold text-primary">Fixed</span> Reduced background task disk write operations.
                                     </li>
                                     <li>
@@ -80,6 +95,9 @@
                                     </li>
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Stream link decryption and playback URL generation for AWS Cloud storage.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-danger">Removed</span> The Tube, Gofile Hosts.
                                     </li>
                                 </ul>
                             </li>
@@ -767,8 +785,11 @@
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
                             <li class="mb-2">
-                                <strong>Aug 27, 2026 (v0.0.4)</strong>
+                                <strong>Sep 02, 2026 (v0.0.4)</strong>
                                 <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Optimized Swoole server runtime settings: configurable socket timeouts, deadlock detection, max connection limits, performance statistics file logging, and AIO thread pool tuning.
+                                    </li>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Open-source and commercial distribution guides and deployment documentation.
                                     </li>
