@@ -25,7 +25,7 @@
 </style>
 
 <!-- Hero Section -->
-<section class="hero-section row">
+<section class="hero-section row" data-nosnippet>
     <div class="col-lg-6 mb-5 mb-lg-0 text-center text-lg-left">
         <h1 class="hero-title">{{ site_slogan|raw }}
         </h1>
@@ -57,8 +57,9 @@
         </div>
     </div>
 </section>
+
 <!-- Stats Section -->
-<div class="stats-bar text-center mb-5 shadow">
+<div class="stats-bar text-center mb-5 shadow" data-nosnippet>
     <div class="row">
         <div class="col-12 col-md-3 mb-4 mb-md-0 stat-item">
             <div class="h3">45 <span>+</span></div>
@@ -78,6 +79,7 @@
         </div>
     </div>
 </div>
+
 <!-- Player Section -->
 <div id="createVideoPlayer" class="row mt-3">
 	<div class="col-12">
@@ -101,8 +103,9 @@
 		{% include templates.disqus %}
 	</div>
 </div>
+
 <!-- Features Section -->
-<section id="features" class="text-center pt-5">
+<section id="features" class="text-center pt-5" data-nosnippet>
     <div class="text-center">
         <h2 class="section-title">Engineered For <span class="text-gradient">Scale and Profit</span></h2>
         <p class="section-subtitle">Everything you need to build a high-traffic, automated, and profitable video streaming network.</p>
@@ -236,9 +239,10 @@
         </div>
     </div>
 </section>
+
 <!-- CTA Section -->
 {% if str_contains(base_url, 'gdplayer.to') or str_contains(base_url, '.test') %}
-    <section id="ctaSection" class="py-5">
+    <section id="ctaSection" class="py-5" data-nosnippet>
         <div class="cta-banner text-white text-center text-md-left shadow-sm">
             <div class="row align-items-center">
                 <div class="col-md-8">
@@ -254,4 +258,5 @@
         </div>
     </section>
 {% endif %}
+
 {% include 'elements/footer.twig' %}
