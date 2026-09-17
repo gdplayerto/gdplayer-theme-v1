@@ -232,7 +232,184 @@
                                 </ul>
                             </li>
                             <li class="mb-2">
-                                <strong>Jul 8, 2026 (v1.0.0)</strong>
+                                <strong>May 01, 2020 (v1.0.0)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Initial release of GDPlayer.
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Swoole Proxy Card -->
+            <div class="mb-2 border-0 card rounded">
+                <div class="card-header p-0 border-0" id="headingSwoole">
+					<button class="btn btn-info btn-lg btn-block shadow-none text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseSwoole" aria-expanded="false" aria-controls="collapseSwoole">
+						<i class="fas fa-server mr-2"></i>
+						Swoole Proxy Plugin
+					</button>
+                </div>
+                <div id="collapseSwoole" class="collapse" aria-labelledby="headingSwoole" data-parent="#changelogAccordion">
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <strong>Sep 12, 2026 (v0.0.7)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Added <code>Content-Encoding</code> and <code>Content-Range</code> to CORS exposed headers (<code>Access-Control-Expose-Headers</code>) in <code>SwooleResponseHelper</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Imported <code>GDPlayer\Logging\Logger</code> directly in <code>swoole-bg.php</code> to clean up FQCN usages.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mb-2">
+                                <strong>Sep 11, 2026 (v0.0.6)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Single-instance concurrency guard using <code>flock</code> in background monitor daemon (<code>swoole-bg.php</code>).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Structured error logging with <code>Logger::log</code> for critical failures (process spawning, config update, and reload requests).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Safe graceful signal termination (<code>SIGTERM</code> prior to <code>SIGKILL</code>) across background service processes.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored <code>SwooleHandler::handle()</code> to reduce cognitive complexity (&lt;= 3) by extracting exception handling into <code>handleWorkerException</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored <code>SwooleStreamResolver::getGoogleDriveAuth()</code> to reduce cognitive complexity (&lt;= 4) and strictly enforce maximum 3 returns by extracting <code>requestGoogleDriveToken</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Centralized single-process termination logic through <code>Background::stopPid()</code> in core service helper.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Hardened command execution with comprehensive <code>escapeshellarg()</code> quoting on Windows and Unix platforms.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Replaced worker output <code>echo</code> with native <code>error_log</code> to comply strictly with Swoole non-blocking daemon directives.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Fixed unhandled worker exceptions by verifying socket writability before sending HTTP 500 response.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Fixed cURL error and invalid token responses handling in Google Drive OAuth flow.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Fixed process ID handling and <code>.pid</code> file cleanup on worker reload and shutdown.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mb-2">
+                                <strong>Sep 09, 2026 (v0.0.5)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Role-based access control check (<code>isAdmin()</code>) on Swoole configuration and control endpoints.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Distribution and deployment documentation (<code>GIT-DISTRIBUTION.md</code>).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Restructured AI directives in <code>GEMINI.md</code> for quality, security, and minimal-footprint rules.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored process termination logic in <code>control.php</code> and optimized Swoole worker reload sequence.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Hardened security against path traversal, file descriptor leaks, and cookie header injections.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mb-2">
+                                <strong>Aug 27, 2026 (v0.0.4)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Open-source and commercial distribution guides and deployment documentation.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Redis connection pooling options with backoff jitter, prefixing, TCP keepalive, and igbinary/zstd compression support.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored internal proxy architecture into modular helper services for better performance and maintainability.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Optimized instance routing and custom URL path handling in background worker.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Added cache driver compatibility validation in backend control panel.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Improved web server configuration template with robust 404 error routing.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Immediate disk free space cache initialization at worker 0 startup and isolated cache key (<code>swoole-disk-free-space</code>).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Reliable background process termination and <code>.pid</code> cleanup on Linux and Windows.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Uncached real-time engine health ping support in status and reload control actions.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Prevented background service daemon crash during server shutdown.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Fixed URL decoded path handling (<code>_2f_</code> and <code>%2F</code>) normalization in upstream request proxy handler.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Fixed AWS stream link decryption and query parameter cleanup in <code>SwooleStreamResolver</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Improved proxy server startup error handling and background process shutdown.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mb-2">
+                                <strong>Aug 08, 2026 (v0.0.3)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Cloudflare rate-limit bypass and <code>X-Content-Length</code> response header for chunked encoding responses.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Code quality static analysis compliance and synchronized composer dependencies.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Swoole server startup handling and overall runtime stability.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Background process manager and server process control stability.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Null coalescing operator check for IP headers in <code>SwooleHandler</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Background service cleanup across different operating system environments.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mb-2">
+                                <strong>Aug 02, 2026 (v0.0.2)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Dynamic DB/Redis configuration management in <code>SwooleHandler</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Optimized PDO statement cursors closing and memory resource handling.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored decentralized stream processing, PHPStan level 8 static analysis compliance, and code formatting.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Resolved live stream video caching logic, direct host redirect flow, and cURL connection reuse.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mb-2">
+                                <strong>Jul 08, 2026 (v0.0.1)</strong>
                                 <ul>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Initial Release.
@@ -241,7 +418,7 @@
                                         <span class="text-bold text-success">Added</span> High-performance PHP proxy engine utilizing Swoole asynchronous server runtime.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Optimize connection pooling and external host configurations for fast source fetching.
+                                        <span class="text-bold text-success">Added</span> Connection pooling optimization and external host configurations for fast source fetching.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Built-in system resource monitor (Free RAM checker on start) and clean runtime logs.
