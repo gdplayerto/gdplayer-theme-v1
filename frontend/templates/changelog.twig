@@ -16,6 +16,103 @@
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
                             <li class="mb-3">
+                                <strong>Sep 17, 2026 (v4.8.6-p5)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Resend HTTP REST API mailer integration (<code>Resend.php</code>) as an alternative email provider alongside SMTP and Mailgun.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Modern custom HTML error pages for HTTP 404 Not Found (<code>public/404.html</code>) and HTTP 502 Bad Gateway (<code>public/502.html</code>) with responsive design and ambient glow effects.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Modular Twig template widgets: <code>light-dark-mode.twig</code> (theme switcher) and <code>meta-icon-prefetch.twig</code> (SEO metadata, favicons, and prefetch links).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Twig template helper functions: <code>jsAAEncode</code> (AAEncode obfuscation), <code>jsMinify</code> (JS minification), and <code>jsPacker</code> (JavaScript Packer).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Added <code>Content-Encoding</code> and <code>Content-Range</code> to CORS exposed headers (<code>Access-Control-Expose-Headers</code>) in <code>createResponseHeaders()</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored and modularized <code>SecurityTrait</code> and <code>BackgroundTrait</code> across Core and Service namespaces.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Enhanced streaming request validation in <code>Master::isValidRequest()</code> with Smart TV detection and HTTP 403 protection.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Optimized stream chunk caching and buffer delivery in <code>Stream.php</code> with cached disk free space checks and dedicated cURL callbacks.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Enhanced cURL TLS configuration with modern SSL cipher suites in <code>MiscHelper::getCurlDefaultConfig()</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Hardened Nginx server configuration template with static assets caching, security deny rules, and custom error page routing.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Hierarchical plugin routing fallback in <code>PluginManager::dispatchPluginPage()</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Prevented redundant re-downloading of existing plugin zip archives in <code>PluginManager::downloadPluginFile()</code> and sync handler.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mb-3">
+                                <strong>Sep 11, 2026 (v4.8.6-p4)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Prevented ZipArchive::open() empty file deprecation warning in PluginManager by validating file existence and non-zero size before extracting or reading cached zip files.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Automatically clean up 0-byte downloaded plugin zip files.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mb-3">
+                                <strong>Sep 11, 2026 (v4.8.6-p3)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Improved plugin extraction error handling and process locking in PluginManager.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Updated .htaccess rewrite rules.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mb-3">
+                                <strong>Sep 11, 2026 (v4.8.6-p2)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Added MySQL auto-reconnect handling on connection drops (MySQL server has gone away).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Added flock file locking mechanism to plugin zip creation in sync handler.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mb-3">
+                                <strong>Sep 11, 2026 (v4.8.6-p1)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Dedicated BackgroundTrait modularizing Unix/Windows PID process termination and safe graceful signals.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Comprehensive code quality, cognitive complexity reduction, and security hardening across Core, Database, External, Helper, Hosting, Presentation, Service, and Views.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Enhanced structured error logging using Logger::log for essential failure cases.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Upgraded maxmind-db/reader dependency to v1.14.0.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Hardened database connection handling, model query exception resiliency, and statement cursor closing.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Process ID argument escaping and background daemon process management.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mb-3">
                                 <strong>Sep 08, 2026 (v4.8.6)</strong>
                                 <ul>
                                     <li>
