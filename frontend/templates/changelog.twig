@@ -16,8 +16,23 @@
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
                             <li class="mb-3">
-                                <strong>Sep 17, 2026 (v4.8.6-p5)</strong>
+                                <strong>Sep 19, 2026 (v4.8.6-p5)</strong>
                                 <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> <code>ThemeManager</code> service supporting dynamic active theme resolution, discovery, and automated theme synchronization (<code>syncThemeFile</code>, <code>downloadThemeFile</code>, <code>extractThemeZip</code>).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Theme synchronization endpoint (<code>includes/views/backend/themes/sync.php</code>) supporting background zip creation, file locking, and download streaming stored in <code>themes/tmp/</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Automated theme synchronization loop to background worker (<code>includes/bg_general.php</code>).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Comprehensive theme development guide (<code>themes/README.md</code>) documenting folder conventions, Twig template overriding, symlinks, and <code>composer.json</code> Semantic Versioning.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> MySQL replication setup and management utility scripts (<code>resources/scripts/mysql-master-setup.sh</code>, <code>mysql-replica-setup.sh</code>, <code>mysql-replica-add-db.sh</code>).
+                                    </li>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Resend HTTP REST API mailer integration (<code>Resend.php</code>) as an alternative email provider alongside SMTP and Mailgun.
                                     </li>
@@ -34,6 +49,18 @@
                                         <span class="text-bold text-success">Added</span> Added <code>Content-Encoding</code> and <code>Content-Range</code> to CORS exposed headers (<code>Access-Control-Expose-Headers</code>) in <code>createResponseHeaders()</code>.
                                     </li>
                                     <li>
+                                        <span class="text-bold text-success">Improved</span> Bumped player JavaScript runtime to v4.6.9 (<code>public/assets/js/player-v4.6.9.js</code>), extracting error styles to <code>public/assets/css/error.css</code> and optimizing button event handlers.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored <code>PluginManager::extractPluginZip()</code> and <code>shouldUpgradePlugin()</code> to prevent overwriting existing plugins unless the archive contains a newer version.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Excluded <code>tmp/</code> folder from available themes listing in <code>ThemeManager::getAvailableThemes()</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Updated purgecss asset pipeline script (<code>purgecss-dlhd.js</code>) to ECMAScript modules (ESM) with theme JS directory scanning.
+                                    </li>
+                                    <li>
                                         <span class="text-bold text-success">Improved</span> Refactored and modularized <code>SecurityTrait</code> and <code>BackgroundTrait</code> across Core and Service namespaces.
                                     </li>
                                     <li>
@@ -43,13 +70,22 @@
                                         <span class="text-bold text-success">Improved</span> Optimized stream chunk caching and buffer delivery in <code>Stream.php</code> with cached disk free space checks and dedicated cURL callbacks.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Enhanced cURL TLS configuration with modern SSL cipher suites in <code>MiscHelper::getCurlDefaultConfig()</code>.
-                                    </li>
-                                    <li>
                                         <span class="text-bold text-success">Improved</span> Hardened Nginx server configuration template with static assets caching, security deny rules, and custom error page routing.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Hierarchical plugin routing fallback in <code>PluginManager::dispatchPluginPage()</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Fixed plugin uninstallation handling and default configuration template rendering in backend admin.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Fixed VTT subtitle header parsing and time offset calculation in <code>includes/views/frontend/subtitle.php</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Hardened Twitch channel/video ID extraction in <code>Extractor::twitch()</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Fixed sources array structure validation in <code>XVFSParser</code>.
                                     </li>
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Prevented redundant re-downloading of existing plugin zip archives in <code>PluginManager::downloadPluginFile()</code> and sync handler.
@@ -353,10 +389,28 @@
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
                             <li class="mb-2">
-                                <strong>Sep 12, 2026 (v0.0.7)</strong>
+                                <strong>Sep 19, 2026 (v0.0.7)</strong>
                                 <ul>
                                     <li>
+                                        <span class="text-bold text-success">Added</span> <code>SwooleCircuitBreaker</code> service protecting against cascading upstream HTTP 404 / 5xx failures with automatic trip and cool-off recovery.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> <code>openResourcesHandler</code> POSIX limit adjustment across Swoole daemon processes (<code>swoole-bg.php</code>, <code>SwooleCacheManager</code>).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Redis caching for custom host request headers JSON.
+                                    </li>
+                                    <li>
                                         <span class="text-bold text-success">Added</span> Added <code>Content-Encoding</code> and <code>Content-Range</code> to CORS exposed headers (<code>Access-Control-Expose-Headers</code>) in <code>SwooleResponseHelper</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored <code>SwooleStreamResolverTrait</code> and extracted <code>extractHostAndId</code> to streamline resolver handling.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Optimized stream cache manager by caching disk free space checks and returning early on insufficient disk storage.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Added lazy master database fallback when encountering MySQL replication lag in Swoole workers.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Imported <code>GDPlayer\Logging\Logger</code> directly in <code>swoole-bg.php</code> to clean up FQCN usages.
