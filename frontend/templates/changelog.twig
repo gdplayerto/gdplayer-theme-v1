@@ -16,6 +16,35 @@
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
                             <li class="mb-3">
+                                <strong>Sep 24, 2026 (v4.8.7)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Optional Redis instance injection support to <code>CircuitBreaker</code> static methods (<code>isAvailable</code>, <code>recordFailure</code>, <code>recordSuccess</code>) for compatibility with long-running application runtimes (Swoole, RoadRunner, background workers).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Circuit Breaker protection to <code>Maxmind::getMaxmindIPInfo</code> to prevent repeated lookups and fallback smoothly when IP info is missing or unavailable.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Standardized circuit breaker cooldown (300 seconds) and failure threshold (3) across services.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Optimized <code>CloudflareProxy</code> settings caching to prevent redundant database queries under high concurrency.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Replaced <code>in_array</code> lookups with O(1) hash lookups in hot execution loops.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Added max retry limits and exponential backoff to background download and extraction loops.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Fixed</span> Bypass unnecessary shutdown <code>proc_open</code> execution in Swoole and RoadRunner runtimes.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Fixed</span> Handled cURL handle cleanup safely for PHP 8.5 compatibility in <code>VideoSource</code> and <code>GoogleDriveRestAPI</code>.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mb-3">
                                 <strong>Sep 19, 2026 (v4.8.6-p5)</strong>
                                 <ul>
                                     <li>
@@ -388,6 +417,35 @@
                 <div id="collapseSwoole" class="collapse" aria-labelledby="headingSwoole" data-parent="#changelogAccordion">
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <strong>Sep 24, 2026 (v0.0.8)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Unified circuit breaker mechanism by replacing <code>SwooleCircuitBreaker</code> with core <code>CircuitBreaker</code> using Redis injection.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored <code>curlWriteCallback</code> in <code>SwooleHandler</code> to strictly enforce a maximum of 3 return points.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored <code>resolveAndValidateRequest</code> in <code>SwooleHandler</code> by consolidating return paths and modularizing helper methods.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Enabled buffered queries on PDO statements to prevent unbuffered query deadlocks.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Capped <code>max_conn</code> to <code>min(65_535, ...)</code> preventing integer overflow in Swoole server configuration.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Fixed broken pipe / closed socket crashes by verifying <code>isWritable()</code> before response writing and ending.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Fixed SSL verification flexibility in upstream requests (<code>configureCurl</code>) with <code>SSL_VERIFYHOST</code> and <code>SSL_VERIFYPEER</code> overrides.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Renamed crash log function to camelCase <code>swooleCrashLog</code>.
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="mb-2">
                                 <strong>Sep 19, 2026 (v0.0.7)</strong>
                                 <ul>
