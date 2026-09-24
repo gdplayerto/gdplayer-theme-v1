@@ -19,10 +19,37 @@
                                 <strong>Sep 24, 2026 (v4.8.7)</strong>
                                 <ul>
                                     <li>
+                                        <span class="text-bold text-success">Added</span> Cache Tag Versioning system (<code>getTagVersion</code>, <code>invalidateTag</code>, <code>invalidateTags</code>, <code>createVersionedKey</code>) to <code>InstanceCache</code> to eliminate Phpfastcache tag index bloat in Redis.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Dynamic and configurable database cache timeouts (<code>DB_CACHE_TIMEOUT_MIN</code>, <code>DB_CACHE_TIMEOUT_SETTINGS</code>, <code>DB_CACHE_TIMEOUT_VIDEOS</code>) in <code>config.php</code> and <code>ModelHelper::getCacheTimeout()</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> <code>AsyncHelper</code> utility (<code>includes/classes/Helper/AsyncHelper.php</code>) with Redis single-flight locking (<code>acquireLock</code>, <code>releaseLock</code>, <code>markDone</code>, <code>isProcessing</code>) and asynchronous background process spawning (<code>spawnBgGet</code>) to eliminate concurrency stampedes and blocking waits.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Targeted single-video background processing mode (<code>--host &lt;host&gt; --host_id &lt;id&gt; [--dl 0|1]</code>) in <code>includes/bg_get.php</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Client-driven fast-polling support in <code>API.php</code> returning <code>{"status":"processing","retry_in":800}</code> and <code>player-v4.7.0.js</code> with animated status loader and progressive retry backoff.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Slug-based and alternative hash-based direct streaming URL routing (<code>direct/mp4/{slug}</code>, <code>direct/hls/{slug}</code>, <code>direct/mpd/{slug}</code>) in <code>includes/views/frontend/direct.php</code> and <code>includes/views/backend/videos/edit.php</code>.
+                                    </li>
+                                    <li>
                                         <span class="text-bold text-success">Added</span> Optional Redis instance injection support to <code>CircuitBreaker</code> static methods (<code>isAvailable</code>, <code>recordFailure</code>, <code>recordSuccess</code>) for compatibility with long-running application runtimes (Swoole, RoadRunner, background workers).
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Circuit Breaker protection to <code>Maxmind::getMaxmindIPInfo</code> to prevent repeated lookups and fallback smoothly when IP info is missing or unavailable.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored and modularized <code>VideoImportAjax</code> by extracting batch processing loops into <code>VideoImportAjaxTrait</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Updated and minified core dashboard script assets (<code>main-v4.0.1.js</code> / <code>.min.js</code>).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Bumped player JavaScript runtime to v4.7.0 (<code>public/assets/js/player-v4.7.0.js</code> / <code>.min.js</code>) and updated asset pipelines in <code>package.json</code> and <code>sw.js</code>.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Standardized circuit breaker cooldown (300 seconds) and failure threshold (3) across services.
@@ -35,6 +62,18 @@
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Added max retry limits and exponential backoff to background download and extraction loops.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Broadened HLS master playlist header validation in <code>Master::isValidRequest()</code> (<code>gzip</code> and <code>*</code> wildcard matching) to avoid false-positive HTTP 403 errors on mobile and embedded browsers.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Removed synchronous script loading deferral on player script elements (<code>jwplayer.twig</code>, <code>plyr.twig</code>, <code>body_bottom.twig</code>) to ensure consistent initialization order.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Fixed</span> Added transient HTTP status codes 408 (Request Timeout) and 504 (Gateway Timeout) to cURL retry handler in <code>Stream.php</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Fixed</span> Added explicit CDN cache prevention headers (<code>CDN-Cache-Control: no-store</code>, <code>Cloudflare-CDN-Cache-Control: no-store</code>) for error and non-cacheable responses in <code>functions.php</code>.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Fixed</span> Bypass unnecessary shutdown <code>proc_open</code> execution in Swoole and RoadRunner runtimes.
@@ -650,6 +689,35 @@
                 <div id="collapseRoadrunner" class="collapse" aria-labelledby="headingRoadrunner" data-parent="#changelogAccordion">
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <strong>Sep 24, 2026 (v0.0.5)</strong>
+                                <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> GitHub Actions CI workflow for static analysis and linting (<code>phpstan</code>, <code>php-cs-fixer</code>, <code>phpcs</code>, <code>php-lint</code>).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Service uninstallation script (<code>uninstall.php</code>) for clean plugin removal.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Background service lifecycle management; refactored stop/restart operations with <code>Background</code> helper.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> State handling for <code>service_stopped</code> flag across start, stop, and restart actions.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Forwarded engine alive checks with updated third parameter support in redirect calls.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Upstream Nginx configuration headers and optimized yakpro-po obfuscation exclusions.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored custom URI request handling (<code>/ping</code> and <code>/status</code> endpoints).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Introduced <code>RoadRunnerFunctions</code> helper class and streamlined service control routing.
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="mb-2">
                                 <strong>Aug 27, 2026 (v0.0.4)</strong>
                                 <ul>

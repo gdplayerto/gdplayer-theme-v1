@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.0.1] - 2026-09-24
+
+### Added
+- Added GitHub Actions CI workflow for static analysis and linting (`phpstan`, `php-cs-fixer`, `phpcs`, `php-lint`).
+- Added asset cache configuration `.htaccess` for backend and frontend.
+- Added Swoole Proxy plugin changelog accordion and updated navigation links.
+- Updated changelog page template (`changelog.twig`) with comprehensive release notes for GDPlayer v4.8.7, Swoole Proxy v0.0.8, and RoadRunner Proxy v0.0.5.
+
+### Changed
+- Synchronized frontend changelog templates with latest core and plugin release entries.
+- Bumped frontend CSS to v0.0.2, added download-page template, and synced patch version release notes.
+- Added `nosnippet` attributes to homepage sections and updated Cloudflare WARP proxy documentation.
+
 ## [0.0.1] - 2026-08-27
 
 ### Added
