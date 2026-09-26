@@ -257,17 +257,8 @@
 		<!-- Scripts -->
 		<script src="assets/vendor/jquery/3.7.1/jquery.min.js"></script>
 		<script src="assets/vendor/FormData.js"></script>
-		<script>
-			var $ = jQuery.noConflict (),
-				adminURL = '{{ backend_url }}',
-				baseURL = '{{ base_url }}',
-				imgCDNURL = baseURL,
-				uRole = {{ user_detail is not empty ? user_detail.role : '-1' }},
-				defaultTimeZone = '{{ timezone }}',
-				vidHosts = {{ supported_hosts|json_encode|raw }},
-				themeColors = ['#{{ theme_color }}', '#{{ theme_color2 }}'];
-		</script>
-		<script type="text/javascript" src="assets/vendor/globalThis.js"></script>
+		
+		{% include templates.default_header_scripts %}
 		<!-- End Scripts -->
 	</head>
 	<body class="bootstrap{{ is_dark_mode ? '-dark' : '' }} mb-5">

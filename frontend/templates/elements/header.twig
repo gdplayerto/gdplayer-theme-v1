@@ -261,20 +261,11 @@
 		<!-- Scripts -->
 		<script src="assets/vendor/jquery/3.7.1/jquery.min.js"></script>
 		<script src="assets/vendor/FormData.js"></script>
-		<script>
-			var $ = jQuery.noConflict(),
-				adminURL = '{{ backend_url }}',
-				baseURL = '{{ base_url }}',
-				imgCDNURL = baseURL,
-				uid = '{{ user_detail is not empty ? user_detail.id : '' }}',
-				email = '{{ user_detail is not empty ? user_detail.email : '' }}',
-				defaultTimeZone = '{{ timezone }}',
-				themeColors = ['#{{ theme_color }}', '#{{ theme_color2 }}'];
-		</script>
+		
+		{% include templates.default_header_scripts %}
 		{% include templates.ga %}
 		{% include templates.gtm_head %}
 		{% include templates.clarity %}
-		<script type="text/javascript" src="assets/vendor/globalThis.js"></script>
 		<!-- End Scripts -->
 	</head>
 
