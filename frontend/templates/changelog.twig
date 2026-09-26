@@ -132,6 +132,9 @@
                                     <li>
                                         <span class="text-bold text-success">Fixed</span> Fixed <code>VideoImportAjax::persistImportRow()</code> to reject rows whose main <code>video_url</code> fails <code>validateUrl()</code> and to cast <code>id</code> to <code>(int)</code> in the DataTable response.
                                     </li>
+                                    <li>
+                                        <span class="text-bold text-success">Fixed</span> Fixed Google Drive HLS playback redirect in <code>Master::redirectToOriginalUrl()</code> to set the browser <code>User-Agent</code> header for <code>isGoogleHls()</code> hosts instead of forcing an inline <code>Content-Disposition</code> redirect, and renamed the <code>isDownloadable</code> property to <code>isDownload</code> for consistent download-flag handling across <code>Master.php</code>.
+                                    </li>
                                 </ul>
                             </li>
                             <li class="mb-3">
