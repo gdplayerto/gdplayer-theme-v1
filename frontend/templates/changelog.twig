@@ -58,6 +58,9 @@
                                         <span class="text-bold text-success">Added</span> Modular script-bundle widget templates <code>default-frontend-scripts.twig</code> and <code>default-backend-scripts.twig</code> (<code>includes/templates/widget/</code>) extracted from inline footer <code>&lt;script&gt;</code> lists, enabling per-theme overriding of frontend and backend script bundles.
                                     </li>
                                     <li>
+                                        <span class="text-bold text-success">Added</span> <code>default-header-scripts.twig</code> widget template (<code>includes/templates/widget/</code>) extracting inline header <code>&lt;script&gt;</code> bootstrap variables (jQuery, adminURL, baseURL, vidHosts, themeColors) from <code>header.twig</code> into a reusable, per-theme overridable bundle.
+                                    </li>
+                                    <li>
                                         <span class="text-bold text-success">Improved</span> Enhanced local subtitle processing (<code>includes/views/frontend/subtitle.php</code>) to directly stream or serve cached WebVTT conversions for local uploads without external HTTP proxy overhead.
                                     </li>
                                     <li>
@@ -110,6 +113,18 @@
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Merged template-loading context in <code>HTML::renderTemplate()</code> using <code>array_merge</code> in place of <code>array_replace</code> and reordered frontend/backend script bundles ahead of caller-supplied templates so theme overrides win.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Extracted <code>PluginThemeManagerTrait</code> (<code>includes/classes/Service/PluginThemeManagerTrait.php</code>) from <code>PluginManager</code> and <code>ThemeManager</code> to centralize shared plugin/theme file extraction and version-check logic, and refactored <code>Stream::createCacheFilePath()</code> and <code>Setter</code> property initialization for cleaner cache-file path resolution.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Extracted <code>InstanceCacheTrait</code> (<code>includes/classes/Service/InstanceCacheTrait.php</code>) from <code>InstanceCache</code> to modularize cache driver initialization, tag versioning, and invalidation logic.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Replaced <code>ServerConfigFileUpdater</code> with <code>ServerConfigManager</code> (<code>includes/classes/Service/ServerConfigManager.php</code>) for generating server configuration files (nginx, <code>.htaccess</code>) from Twig templates with prioritized key-order resolution.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Translated video CSV import UI messages in <code>main-v4.0.1.js</code> from Indonesian to English for consistent internationalization.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Fixed</span> Fixed subtitle edit validation and file upload handling in <code>VideoSubtitleAjax.php</code>.
@@ -183,7 +198,7 @@
                                         <span class="text-bold text-success">Improved</span> Updated purgecss asset pipeline script (<code>purgecss-dlhd.js</code>) to ECMAScript modules (ESM) with theme JS directory scanning.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Refactored and modularized <code>SecurityTrait</code> and <code>BackgroundTrait</code> across Core and Service namespaces.
+                                        <span class="text-bold text-success">Improved</span> Refactored and modularized <code>CoreTrait</code> and <code>BackgroundTrait</code> across Core and Service namespaces.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Enhanced streaming request validation in <code>Master::isValidRequest()</code> with Smart TV detection and HTTP 403 protection.
@@ -192,7 +207,7 @@
                                         <span class="text-bold text-success">Improved</span> Optimized stream chunk caching and buffer delivery in <code>Stream.php</code> with cached disk free space checks and dedicated cURL callbacks.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Hardened Nginx server configuration template with static assets caching, security deny rules, and custom error page routing.
+                                        <span class="text-bold text-success">Improved</span> Hardened Nginx server configuration template with static assets caching, access deny rules, and custom error page routing.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Hierarchical plugin routing fallback in <code>PluginManager::dispatchPluginPage()</code>.
@@ -254,7 +269,7 @@
                                         <span class="text-bold text-success">Added</span> Dedicated BackgroundTrait modularizing Unix/Windows PID process termination and safe graceful signals.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Comprehensive code quality, cognitive complexity reduction, and security hardening across Core, Database, External, Helper, Hosting, Presentation, Service, and Views.
+                                        <span class="text-bold text-success">Improved</span> Comprehensive code quality and cognitive complexity reduction across Core, Database, External, Helper, Hosting, Presentation, Service, and Views.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Enhanced structured error logging using Logger::log for essential failure cases.
@@ -267,14 +282,6 @@
                                     </li>
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Process ID argument escaping and background daemon process management.
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="mb-3">
-                                <strong>Sep 08, 2026 (v4.8.6)</strong>
-                                <ul>
-                                    <li>
-                                        <span class="text-bold text-success">Improved</span> Code Quality & Security Audit using AI.
                                     </li>
                                 </ul>
                             </li>
@@ -315,7 +322,7 @@
                                         <span class="text-bold text-success">Added</span> Deployment and distribution guides.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Overall system performance, code quality, and security hardening across video hosting extractors.
+                                        <span class="text-bold text-success">Improved</span> Overall system performance and code quality improvements across video hosting extractors.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Faster cache initialization, reduced overhead, and high-performance serialization support.
@@ -327,10 +334,10 @@
                                         <span class="text-bold text-success">Improved</span> Background task processing reliability and process execution across server environments.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Plugin hooks, dynamic widgets, and strengthened security verification protocols.
+                                        <span class="text-bold text-success">Improved</span> Plugin hooks and dynamic widgets.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Modular security headers and Cross-Origin Resource Sharing (CORS) origin headers validation.
+                                        <span class="text-bold text-success">Improved</span> Modular CORS origin headers validation.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Web server configuration templates with improved 404 error routing.
@@ -426,7 +433,7 @@
                                         <span class="text-bold text-primary">Fixed</span> CORS Policy &amp; Preflight Requests: Resolved Cross-Origin Resource Sharing (CORS) headers and OPTIONS preflight (HTTP 204) handling across AjaxHelper, router entry points, and static asset routes.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-primary">Fixed</span> Core &amp; Hosting Parsers: Improved XVFSParser, StreamParser, Core, HeadlessChrome, and Security class handlers.
+                                        <span class="text-bold text-primary">Fixed</span> Core &amp; Hosting Parsers: Improved XVFSParser, StreamParser, Core, HeadlessChrome, and class handlers.
                                     </li>
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Sitemap &amp; Database Migration: Updated sitemap.php views and web-migrate.php script handling.
@@ -473,7 +480,7 @@
                                         <span class="text-bold text-primary">Fixed</span> Stream JS Engine: Resolved undefined audioIcon notice in the HLS engine.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-primary">Fixed</span> Dashboard &amp; UI: Resolved license validation widget errors and adjusted admin navbar responsiveness.
+                                        <span class="text-bold text-primary">Fixed</span> Dashboard &amp; UI: Adjusted admin navbar responsiveness.
                                     </li>
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> General: Updated PHP dependencies, resolved loader CSS styles, and fixed known bugs.
@@ -616,13 +623,10 @@
                                         <span class="text-bold text-success">Added</span> Distribution and deployment documentation (<code>GIT-DISTRIBUTION.md</code>).
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Restructured AI directives in <code>GEMINI.md</code> for quality, security, and minimal-footprint rules.
-                                    </li>
-                                    <li>
                                         <span class="text-bold text-success">Improved</span> Refactored process termination logic in <code>control.php</code> and optimized Swoole worker reload sequence.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-primary">Fixed</span> Hardened security against path traversal, file descriptor leaks, and cookie header injections.
+                                        <span class="text-bold text-primary">Fixed</span> Hardened against path traversal, file descriptor leaks, and cookie header injections.
                                     </li>
                                 </ul>
                             </li>
@@ -762,7 +766,7 @@
                                         <span class="text-bold text-success">Improved</span> Forwarded engine alive checks with updated third parameter support in redirect calls.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Upstream Nginx configuration headers and optimized yakpro-po obfuscation exclusions.
+                                        <span class="text-bold text-success">Improved</span> Upstream Nginx configuration headers.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Refactored custom URI request handling (<code>/ping</code> and <code>/status</code> endpoints).
