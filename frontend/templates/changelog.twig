@@ -16,8 +16,20 @@
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
                             <li class="mb-3">
-                                <strong>Sep 24, 2026 (v4.8.7)</strong>
+                                <strong>Sep 26, 2026 (v4.8.7)</strong>
                                 <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Host Connectivity &amp; Stability Telemetry system (<code>includes/classes/Helper/StreamTelemetry.php</code>) with RAM-to-DB periodic flushing (<code>host_telemetry_{loadBalancerId}_{type}_{vHost}</code>) for MySQL B-Tree index prefix range queries.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Browser client-side telemetry JavaScript library (<code>public/assets/js/telemetry-v1.0.0.js</code> / <code>.min.js</code>) with automatic global media capturing (<code>autoInit</code>) for dynamic player engines (Plyr, JWPlayer, HLS.js, Shaka, Novage P2P).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Frontend telemetry API endpoint (<code>includes/views/frontend/telemetry.php</code>) supporting CORS and non-blocking <code>navigator.sendBeacon()</code> browser reporting.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> Horizontal Host Stability Rank ribbon bar with hover tooltips and host logos on the Video List page (<code>includes/templates/backend/videos/list.twig</code>).
+                                    </li>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Cache Tag Versioning system (<code>getTagVersion</code>, <code>invalidateTag</code>, <code>invalidateTags</code>, <code>createVersionedKey</code>) to <code>InstanceCache</code> to eliminate Phpfastcache tag index bloat in Redis.
                                     </li>
@@ -31,7 +43,7 @@
                                         <span class="text-bold text-success">Added</span> Targeted single-video background processing mode (<code>--host &lt;host&gt; --host_id &lt;id&gt; [--dl 0|1]</code>) in <code>includes/bg_get.php</code>.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Client-driven fast-polling support in <code>API.php</code> returning <code>{"status":"processing","retry_in":800}</code> and <code>player-v4.7.0.js</code> with animated status loader and progressive retry backoff.
+                                        <span class="text-bold text-success">Added</span> Client-driven fast-polling support in <code>API.php</code> returning <code>{"status":"processing","retry_in":800}</code> and <code>player-v4.7.1.js</code> with animated status loader and progressive retry backoff.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Slug-based and alternative hash-based direct streaming URL routing (<code>direct/mp4/{slug}</code>, <code>direct/hls/{slug}</code>, <code>direct/mpd/{slug}</code>) in <code>includes/views/frontend/direct.php</code> and <code>includes/views/backend/videos/edit.php</code>.
@@ -43,10 +55,37 @@
                                         <span class="text-bold text-success">Added</span> Circuit Breaker protection to <code>Maxmind::getMaxmindIPInfo</code> to prevent repeated lookups and fallback smoothly when IP info is missing or unavailable.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Refactored and modularized <code>VideoImportAjax</code> by extracting batch processing loops into <code>VideoImportAjaxTrait</code>.
+                                        <span class="text-bold text-success">Added</span> Modular script-bundle widget templates <code>default-frontend-scripts.twig</code> and <code>default-backend-scripts.twig</code> (<code>includes/templates/widget/</code>) extracted from inline footer <code>&lt;script&gt;</code> lists, enabling per-theme overriding of frontend and backend script bundles.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Enhanced local subtitle processing (<code>includes/views/frontend/subtitle.php</code>) to directly stream or serve cached WebVTT conversions for local uploads without external HTTP proxy overhead.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Enhanced <code>Parser.php</code> to support custom poster query parameter (<code>poster</code>) and prioritize pre-set metadata while preserving existing video title and poster fallbacks.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Migrated Ajax file upload handling across controllers (<code>PublicAjax</code>, <code>VideoAjax</code>, <code>VideoImportAjax</code>, <code>VideoSubtitleAjax</code>, <code>SubtitleManager</code>) to PSR-7 <code>UploadedFileInterface</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Enhanced <code>Stream::stream</code> routing to conditionally utilize <code>CURLOPT_FILE</code> with <code>php://output</code> on non-Windows platforms when temporary chunk caching (<code>fpChunk</code>) is not active.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Streamlined <code>InstanceCache</code> driver connections (<code>includes/classes/Service/InstanceCache.php</code>) to exclusively support <code>Redis</code>, <code>Predis</code>, and <code>Files</code> (Filesystem) drivers, eliminating legacy drivers (<code>Memcached</code>, <code>Memcache</code>, <code>APCu</code>, <code>SQLite</code>) for optimized high-concurrency performance.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Bumped player JavaScript runtime to v4.7.1 (<code>public/assets/js/player-v4.7.1.js</code> / <code>.min.js</code>) and updated player CSS (<code>public/assets/css/player-v3.4.0.css</code> / <code>.min.css</code>).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored video CSV import: moved parsing to frontend using PapaParse (<code>public/assets/vendor/papaparse/5.4.1/papaparse.min.js</code>), batching records into JSON payloads (up to 10 rows per batch) sent to <code>importVideosBatch</code> endpoint, eliminating server-side file uploads, polling overhead, and import cancellation complexity.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Streamlined <code>VideoImportAjaxTrait</code> (<code>includes/classes/Ajax/VideoImportAjaxTrait.php</code>) to focus on single-row JSON validation (<code>validateImportRow()</code>) and removed obsolete CSV extractors.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Updated and minified core dashboard script assets (<code>main-v4.0.1.js</code> / <code>.min.js</code>).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Replaced Phpfastcache array-based tag sets (<code>addTags</code>) with versioned cache keys in <code>Model.php</code> (<code>get</code>, <code>getOne</code>, <code>getNumRows</code>, <code>getTotalRows</code>, <code>getWhereIn</code>), reducing Redis memory overhead and avoiding Tag Garbage Collection issues.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Bumped player JavaScript runtime to v4.7.0 (<code>public/assets/js/player-v4.7.0.js</code> / <code>.min.js</code>) and updated asset pipelines in <code>package.json</code> and <code>sw.js</code>.
@@ -64,10 +103,16 @@
                                         <span class="text-bold text-success">Improved</span> Added max retry limits and exponential backoff to background download and extraction loops.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Broadened HLS master playlist header validation in <code>Master::isValidRequest()</code> (<code>gzip</code> and <code>*</code> wildcard matching) to avoid false-positive HTTP 403 errors on mobile and embedded browsers.
+                                        <span class="text-bold text-success">Improved</span> Removed synchronous script loading deferral on player script elements (<code>jwplayer.twig</code>, <code>plyr.twig</code>, <code>body_bottom.twig</code>) to ensure consistent initialization order.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Removed synchronous script loading deferral on player script elements (<code>jwplayer.twig</code>, <code>plyr.twig</code>, <code>body_bottom.twig</code>) to ensure consistent initialization order.
+                                        <span class="text-bold text-success">Improved</span> Renamed <code>default-script.twig</code> to <code>sw.twig</code> and remapped its template key from <code>default_script</code> to <code>sw_script</code> in <code>HTML::renderTemplate()</code>, referenced from the new <code>default-frontend-scripts.twig</code> and <code>default-backend-scripts.twig</code> bundles.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Merged template-loading context in <code>HTML::renderTemplate()</code> using <code>array_merge</code> in place of <code>array_replace</code> and reordered frontend/backend script bundles ahead of caller-supplied templates so theme overrides win.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Fixed</span> Fixed subtitle edit validation and file upload handling in <code>VideoSubtitleAjax.php</code>.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Fixed</span> Added transient HTTP status codes 408 (Request Timeout) and 504 (Gateway Timeout) to cURL retry handler in <code>Stream.php</code>.
@@ -80,6 +125,12 @@
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Fixed</span> Handled cURL handle cleanup safely for PHP 8.5 compatibility in <code>VideoSource</code> and <code>GoogleDriveRestAPI</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Fixed</span> Fixed <code>AjaxHelper::__construct()</code> to parse raw JSON request bodies via <code>customJsonDecode()</code> so batched video import payloads reach <code>importVideosBatch</code> instead of being dropped.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Fixed</span> Fixed <code>VideoImportAjax::persistImportRow()</code> to reject rows whose main <code>video_url</code> fails <code>validateUrl()</code> and to cast <code>id</code> to <code>(int)</code> in the DataTable response.
                                     </li>
                                 </ul>
                             </li>
