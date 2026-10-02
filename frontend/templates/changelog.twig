@@ -16,7 +16,7 @@
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
                             <li class="mb-3">
-                                <strong>Sep 26, 2026 (v4.8.7)</strong>
+                                <strong>Oct 02, 2026 (v4.8.7)</strong>
                                 <ul>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Host Connectivity &amp; Stability Telemetry system (<code>includes/classes/Helper/StreamTelemetry.php</code>) with RAM-to-DB periodic flushing (<code>host_telemetry_{loadBalancerId}_{type}_{vHost}</code>) for MySQL B-Tree index prefix range queries.
@@ -518,28 +518,79 @@
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
                             <li class="mb-2">
-                                <strong>Sep 24, 2026 (v0.0.8)</strong>
+                                <strong>Oct 02, 2026 (v0.0.8)</strong>
                                 <ul>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Unified circuit breaker mechanism by replacing <code>SwooleCircuitBreaker</code> with core <code>CircuitBreaker</code> using Redis injection.
+                                        <span class="text-bold text-success">Added</span> Swoole extension and <code>swoole-cli.exe</code> presence check before starting daemon in <code>swoole-bg.php</code> and backend config view.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> load balancer sync action and interactive service control buttons in <code>templates/config.twig</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> <code>ThemePoolBorrower</code> lifecycle helper (<code>src/ThemePoolBorrower.php</code>) for theme handlers requiring Redis/PDO pool access, providing <code>initThemePools()</code>, <code>isThemePoolsReady()</code>, <code>withRedis()</code>, <code>withPdoRead()</code>, <code>withPdoWrite()</code>, and idempotent <code>releaseThemePools()</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> dedicated <code>SwoolePdoManager</code> and <code>SwooleRedisManager</code> pool managers with safe connection acquire/release (<code>get</code>, <code>getAll</code>, <code>getRow</code>, <code>withWrite</code>, <code>set</code>, <code>setex</code>) and fast availability checks.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> <code>gdrive_hls</code> and <code>gphotos_hls</code> configuration flags in <code>SwooleConfigLoader</code> to control Google Drive/Photos HLS streaming mode.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> complete routing reference document (<code>ROUTER.md</code>).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Unified circuit breaker mechanism by replacing <code>SwooleCircuitBreaker</code> with core <code>CircuitBreaker</code> (<code>GDPlayer\Service\CircuitBreaker</code>) using Redis injection.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored Swoole pool handling to use <code>SwoolePdoManager</code>/<code>SwooleRedisManager</code> instead of raw <code>PDOPool</code>/<code>RedisPool</code>, ensuring connections are safely returned to their pools.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Moved PDO connection release to after <code>curl_exec</code> in <code>SwooleHandler</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Added buffered queries to the Swoole replica connection.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored <code>SwooleHandler</code>/<code>SwooleHandlerTrait</code> and <code>SwooleStreamResolver</code>/<code>SwooleStreamResolverTrait</code> for SonarQube code-quality compliance and removed unused methods.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> <code>dispatchThemeHandler</code> with theme pool pre-flight validation (HTTP 503 + log when pools are not initialized).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Wired <code>CloudflareProxy</code> configuration through <code>SwooleHandler</code>, <code>SwooleConfigLoader</code>, and <code>SwooleStreamResolver</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Enhanced <code>SwooleLogger</code> with <code>critical</code>-level logging across pool, cache, and Google Drive OAuth failures, and hardened log cleanup to skip Swoole-owned log files (<code>swoole.log</code>, <code>swoole_stats.log</code>).
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Refactored <code>curlWriteCallback</code> in <code>SwooleHandler</code> to strictly enforce a maximum of 3 return points.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Refactored <code>resolveAndValidateRequest</code> in <code>SwooleHandler</code> by consolidating return paths and modularizing helper methods.
+                                        <span class="text-bold text-success">Improved</span> Refactored <code>resolveAndValidateRequest</code> in <code>SwooleHandler</code> by consolidating return paths and modularizing header &amp; URL helpers.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Enabled buffered queries on PDO statements to prevent unbuffered query deadlocks.
+                                        <span class="text-bold text-success">Improved</span> Enabled buffered queries on PDO statements to avoid unbuffered query deadlocks.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Capped <code>max_conn</code> to <code>min(65_535, ...)</code> preventing integer overflow in Swoole server configuration.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-primary">Fixed</span> Fixed broken pipe / closed socket crashes by verifying <code>isWritable()</code> before response writing and ending.
+                                        <span class="text-bold text-success">Improved</span> Updated <code>composer.lock</code> dependencies.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-primary">Fixed</span> Fixed SSL verification flexibility in upstream requests (<code>configureCurl</code>) with <code>SSL_VERIFYHOST</code> and <code>SSL_VERIFYPEER</code> overrides.
+                                        <span class="text-bold text-primary">Fixed</span> Google Drive / Google Photos HLS streaming mode.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> temporary unavailable cases by bounding response buffering (<code>MAX_BUFFERED_BYTES</code>, 2 MB) to avoid yielding inside the cURL C-stack, and safely detaching <code>CURLOPT_STDERR</code> before closing the verbose stream handle.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Added explicit CDN no-cache headers (<code>CDN-Cache-Control: no-store</code>, <code>Cloudflare-CDN-Cache-Control: no-store</code>) for error and non-cacheable responses in <code>SwooleHandler.php</code> and <code>swoole.php</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> broken pipe / closed socket crashes by ensuring <code>isWritable()</code> before response writing and ending.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> SSL verification flexibility in upstream requests (<code>configureCurl</code>) with <code>SSL_VERIFYHOST</code> and <code>SSL_VERIFYPEER</code> overrides.
                                     </li>
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Renamed crash log function to camelCase <code>swooleCrashLog</code>.
@@ -550,16 +601,13 @@
                                 <strong>Sep 19, 2026 (v0.0.7)</strong>
                                 <ul>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> <code>SwooleCircuitBreaker</code> service protecting against cascading upstream HTTP 404 / 5xx failures with automatic trip and cool-off recovery.
+                                        <span class="text-bold text-success">Added</span> <code>SwooleCircuitBreaker</code> service (<code>src/SwooleCircuitBreaker.php</code>) protecting against cascading upstream HTTP 404 / 5xx failures with automatic trip and cool-off recovery.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Added</span> <code>openResourcesHandler</code> POSIX limit adjustment across Swoole daemon processes (<code>swoole-bg.php</code>, <code>SwooleCacheManager</code>).
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Redis caching for custom host request headers JSON.
-                                    </li>
-                                    <li>
-                                        <span class="text-bold text-success">Added</span> Added <code>Content-Encoding</code> and <code>Content-Range</code> to CORS exposed headers (<code>Access-Control-Expose-Headers</code>) in <code>SwooleResponseHelper</code>.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Refactored <code>SwooleStreamResolverTrait</code> and extracted <code>extractHostAndId</code> to streamline resolver handling.
@@ -569,6 +617,9 @@
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Added lazy master database fallback when encountering MySQL replication lag in Swoole workers.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Automatically clear cache via <code>InstanceCache::clear()</code> during Swoole stop, restart, and reload control actions.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Imported <code>GDPlayer\Logging\Logger</code> directly in <code>swoole-bg.php</code> to clean up FQCN usages.
@@ -603,13 +654,13 @@
                                         <span class="text-bold text-success">Improved</span> Replaced worker output <code>echo</code> with native <code>error_log</code> to comply strictly with Swoole non-blocking daemon directives.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-primary">Fixed</span> Fixed unhandled worker exceptions by verifying socket writability before sending HTTP 500 response.
+                                        <span class="text-bold text-primary">Fixed</span> unhandled worker exceptions by verifying socket writability before sending HTTP 500 response.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-primary">Fixed</span> Fixed cURL error and invalid token responses handling in Google Drive OAuth flow.
+                                        <span class="text-bold text-primary">Fixed</span> cURL error and invalid token responses handling in Google Drive OAuth flow.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-primary">Fixed</span> Fixed process ID handling and <code>.pid</code> file cleanup on worker reload and shutdown.
+                                        <span class="text-bold text-primary">Fixed</span> process ID handling and <code>.pid</code> file cleanup on worker reload and shutdown.
                                     </li>
                                 </ul>
                             </li>
@@ -617,16 +668,10 @@
                                 <strong>Sep 09, 2026 (v0.0.5)</strong>
                                 <ul>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Role-based access control check (<code>isAdmin()</code>) on Swoole configuration and control endpoints.
-                                    </li>
-                                    <li>
                                         <span class="text-bold text-success">Added</span> Distribution and deployment documentation (<code>GIT-DISTRIBUTION.md</code>).
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Refactored process termination logic in <code>control.php</code> and optimized Swoole worker reload sequence.
-                                    </li>
-                                    <li>
-                                        <span class="text-bold text-primary">Fixed</span> Hardened against path traversal, file descriptor leaks, and cookie header injections.
                                     </li>
                                 </ul>
                             </li>
@@ -649,7 +694,7 @@
                                         <span class="text-bold text-success">Improved</span> Added cache driver compatibility validation in backend control panel.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Improved web server configuration template with robust 404 error routing.
+                                        <span class="text-bold text-success">Improved</span> web server configuration template with robust 404 error routing.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Immediate disk free space cache initialization at worker 0 startup and isolated cache key (<code>swoole-disk-free-space</code>).
@@ -664,10 +709,10 @@
                                         <span class="text-bold text-primary">Fixed</span> Prevented background service daemon crash during server shutdown.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-primary">Fixed</span> Fixed URL decoded path handling (<code>_2f_</code> and <code>%2F</code>) normalization in upstream request proxy handler.
+                                        <span class="text-bold text-primary">Fixed</span> URL decoded path handling (<code>_2f_</code> and <code>%2F</code>) normalization in upstream request proxy handler.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-primary">Fixed</span> Fixed AWS stream link decryption and query parameter cleanup in <code>SwooleStreamResolver</code>.
+                                        <span class="text-bold text-primary">Fixed</span> AWS stream link decryption and query parameter cleanup in <code>SwooleStreamResolver</code>.
                                     </li>
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Improved proxy server startup error handling and background process shutdown.
@@ -748,13 +793,40 @@
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
                             <li class="mb-2">
-                                <strong>Sep 24, 2026 (v0.0.5)</strong>
+                                <strong>Oct 02, 2026 (v0.0.5)</strong>
                                 <ul>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> <code>RoadRunnerConfigLoader</code> — per-request settings via a short-TTL Redis cache; admin changes now apply without restarting the worker.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> <code>RoadRunnerPdoManager</code> — per-worker PDO with automatic reconnect and replica→master fallback, replacing the static <code>Conn</code> singleton on the request path.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> <code>RoadRunnerRedisManager</code> — per-worker Redis connection with transparent reconnect on stale links.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> <code>RoadRunnerLogger</code> — superglobal-free logger (explicit ip/url) replacing <code>GDPlayer\Logging\Logger</code> in the worker.
+                                    </li>
                                     <li>
                                         <span class="text-bold text-success">Added</span> GitHub Actions CI workflow for static analysis and linting (<code>phpstan</code>, <code>php-cs-fixer</code>, <code>phpcs</code>, <code>php-lint</code>).
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Service uninstallation script (<code>uninstall.php</code>) for clean plugin removal.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Removed <code>$_SERVER</code>/<code>$_POST</code>/<code>php://input</code> usage from the worker request path (NO GLOBALS rule).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Upstream failure no longer blocks the worker with up to 64s of <code>usleep</code> backoff plus an inline re-scrape; the rescue is offloaded to <code>AsyncHelper::spawnBgGet()</code> (fire-and-forget) with a KV-backed retry guard (max 3).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Google Drive auth now resolves the token inline (dedicated cURL handle + Redis cache) instead of instantiating the heavyweight <code>GoogleDriveRestAPI</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Request state (status, length, cache fp, ip) is reset per request; <code>directHosts()</code> is reproduced locally without touching <code>BinFile</code>/<code>Config</code>/<code>InstanceCache</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> <code>phpstan.neon.dist</code> now sets <code>treatPhpDocTypesAsCertain: false</code>, matching the Swoole plugin.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Background service lifecycle management; refactored stop/restart operations with <code>Background</code> helper.
@@ -794,13 +866,25 @@
                                 </ul>
                             </li>
                             <li class="mb-2">
-                                <strong>Aug 13, 2026 (v0.0.4)</strong>
+                                <strong>Aug 23, 2026 (v0.0.4)</strong>
                                 <ul>
                                     <li>
-                                        <span class="text-bold text-primary">Fixed</span> Fixed AWS stream parameter decryption and playback key handling.
+                                        <span class="text-bold text-success">Improved</span> Background daemon runner process checking combining PID status and un-cached engine ping validation.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-primary">Fixed</span> Enhanced background service process validation and termination.
+                                        <span class="text-bold text-success">Improved</span> Background process termination by path and reliable <code>.pid</code> cleanup on stop/restart actions.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Real-time engine health ping validation for reload and status check endpoints.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> URL encoded trailing slashes (<code>_2f_</code> to <code>%2F</code>) normalization in request routing and direct host handling.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> AWS stream parameter decryption and playback key handling in <code>RoadRunnerHelper</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Enhanced background service process validation and graceful termination.
                                     </li>
                                 </ul>
                             </li>
@@ -825,7 +909,7 @@
                                 <strong>Aug 2, 2026 (v0.0.2)</strong>
                                 <ul>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Dynamic worker daemon runner and optimized `.rr.json` configurations.
+                                        <span class="text-bold text-success">Added</span> Dynamic worker daemon runner and optimized <code>.rr.json</code> configurations.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> PHPStan level 8 static analysis compliance, code quality, and worker process lifecycle.
