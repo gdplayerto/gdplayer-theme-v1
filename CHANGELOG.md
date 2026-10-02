@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.0.1] - 2026-09-24
+## [0.0.2] - 2026-10-02
 
 ### Added
 - Added GitHub Actions CI workflow for static analysis and linting (`phpstan`, `php-cs-fixer`, `phpcs`, `php-lint`).

@@ -1,0 +1,9 @@
+parameters:
+    level: 8
+    paths:
+        - frontend/views
+    bootstrapFiles:
+        - ../../vendor/autoload.php
+    treatPhpDocTypesAsCertain: false
+    parallel:
+        maximumNumberOfProcesses: 1

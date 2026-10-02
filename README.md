@@ -16,15 +16,15 @@ To install and activate **GDPlayer Theme v1** on your GDPlayer installation, fol
 
 ---
 
-### 2. Configure `includes/config.php`
-Open the `includes/config.php` file in your root GDPlayer installation, then set or verify that `ACTIVE_THEME` constant is set to `'gdplayer'`:
+### 2. Activate the Theme via General Settings
+Activate the theme from the GDPlayer Admin Panel instead of editing configuration files:
 
-```php
-/**  @define string ACTIVE_THEME current active theme folder name. Default: default */
-define('ACTIVE_THEME', 'gdplayer');
-```
+1. Log in to the **Admin Panel** and open **Settings → General Settings**.
+2. In the **General Settings** card, find the **Active Theme** dropdown.
+3. Select **GDPlayer Theme v1** from the list.
+4. Save the settings to apply the theme.
 
 ---
 
 ### 3. Done
-Save the `includes/config.php` file. The **GDPlayer Theme v1** theme is now successfully installed and active on your GDPlayer application.
+The **GDPlayer Theme v1** theme is now successfully installed and active on your GDPlayer application.
