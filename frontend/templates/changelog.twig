@@ -14,51 +14,84 @@
                 </div>
                 <div id="collapseGdplayer" class="collapse show" aria-labelledby="headingGdplayer" data-parent="#changelogAccordion">
                     <div class="card-body">
-                        <ul class="list-unstyled mb-0">
+                        <ol class="list-unstyled mb-0">
                             <li class="mb-3">
-                                <strong>Oct 02, 2026 (v4.8.7)</strong>
-                                <ul>
+                                <strong>Oct 06, 2026 (v4.8.7)</strong>
+                                <ol>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> <code>modifyColumn</code> support to the Database Migration feature (<code>Migrate::modifyColumn</code>, <code>MigrationQueries::getModifiedFieldQueries</code>) to rename table columns while preserving existing data during schema upgrades, and extracted the column builder into the <code>MigrateColumnTypes</code> trait.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> a complete routing reference document (<code>ROUTER.md</code>) covering application routes and dispatch behavior.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> root <code>.htaccess</code> rewrite rules that forward requests to the <code>public/</code> directory for cPanel-style deployments.
+                                    </li>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Host Connectivity &amp; Stability Telemetry system (<code>includes/classes/Helper/StreamTelemetry.php</code>) with RAM-to-DB periodic flushing (<code>host_telemetry_{loadBalancerId}_{type}_{vHost}</code>) for MySQL B-Tree index prefix range queries.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Browser client-side telemetry JavaScript library (<code>public/assets/js/telemetry-v1.0.0.js</code> / <code>.min.js</code>) with automatic global media capturing (<code>autoInit</code>) for dynamic player engines (Plyr, JWPlayer, HLS.js, Shaka, Novage P2P).
+                                        <span class="text-bold text-success">Added</span> browser client-side telemetry JavaScript library (<code>public/assets/js/telemetry-v1.0.0.js</code> / <code>.min.js</code>) with automatic global media capturing (<code>autoInit</code>) for dynamic player engines (Plyr, JWPlayer, HLS.js, Shaka, Novage P2P).
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Frontend telemetry API endpoint (<code>includes/views/frontend/telemetry.php</code>) supporting CORS and non-blocking <code>navigator.sendBeacon()</code> browser reporting.
+                                        <span class="text-bold text-success">Added</span> frontend telemetry API endpoint (<code>includes/views/frontend/telemetry.php</code>) supporting non-blocking <code>navigator.sendBeacon()</code> browser reporting.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Horizontal Host Stability Rank ribbon bar with hover tooltips and host logos on the Video List page (<code>includes/templates/backend/videos/list.twig</code>).
+                                        <span class="text-bold text-success">Added</span> horizontal Host Stability Rank ribbon bar with hover tooltips and host logos on the Video List page (<code>includes/templates/backend/videos/list.twig</code>).
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> <code>HostHealth</code> service (<code>includes/classes/Service/HostHealth.php</code>) that tracks unreachable upstream identities (DNS/connection failures or repeatedly empty extraction) and short-circuits them to 404 for a TTL once a failure threshold is reached, wired into <code>Core</code>, <code>SourceHelper</code>, and <code>poster.php</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> automatic Nginx configuration generation (<code>ServerConfigManager::ensure()</code>, <code>ensureNginxConfigFile()</code>) that lazily writes <code>resources/nginx/site.d/nginx.conf</code> on the first request or during migration, using an <code>InstanceCache</code> staleness signature and file locking so the in-sync path performs no file I/O.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Cache Tag Versioning system (<code>getTagVersion</code>, <code>invalidateTag</code>, <code>invalidateTags</code>, <code>createVersionedKey</code>) to <code>InstanceCache</code> to eliminate Phpfastcache tag index bloat in Redis.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Dynamic and configurable database cache timeouts (<code>DB_CACHE_TIMEOUT_MIN</code>, <code>DB_CACHE_TIMEOUT_SETTINGS</code>, <code>DB_CACHE_TIMEOUT_VIDEOS</code>) in <code>config.php</code> and <code>ModelHelper::getCacheTimeout()</code>.
+                                        <span class="text-bold text-success">Added</span> dynamic and configurable database cache timeouts (<code>DB_CACHE_TIMEOUT_MIN</code>, <code>DB_CACHE_TIMEOUT_SETTINGS</code>, <code>DB_CACHE_TIMEOUT_VIDEOS</code>) in <code>config.php</code> and <code>ModelHelper::getCacheTimeout()</code>.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> <code>AsyncHelper</code> utility (<code>includes/classes/Helper/AsyncHelper.php</code>) with Redis single-flight locking (<code>acquireLock</code>, <code>releaseLock</code>, <code>markDone</code>, <code>isProcessing</code>) and asynchronous background process spawning (<code>spawnBgGet</code>) to eliminate concurrency stampedes and blocking waits.
+                                        <span class="text-bold text-success">Added</span> an HTTP-first extraction path to the Dood extractor (<code>parseSourcesViaHttp()</code>) so playback URLs are resolved without a headless browser, which is now used only as a fallback.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Targeted single-video background processing mode (<code>--host &lt;host&gt; --host_id &lt;id&gt; [--dl 0|1]</code>) in <code>includes/bg_get.php</code>.
+                                        <span class="text-bold text-success">Added</span> <code>VideoAlternative::insertMultiByVideoId()</code> to centralize alternative-link insertion on the video add/edit pages.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Client-driven fast-polling support in <code>API.php</code> returning <code>{"status":"processing","retry_in":800}</code> and <code>player-v4.7.1.js</code> with animated status loader and progressive retry backoff.
+                                        <span class="text-bold text-success">Added</span> PID-reuse protection to <code>BackgroundTrait::isRunning()</code> and <code>stopPid()</code> via an optional process image name, so a recycled PID is never treated as (or killed as) the target process.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Slug-based and alternative hash-based direct streaming URL routing (<code>direct/mp4/{slug}</code>, <code>direct/hls/{slug}</code>, <code>direct/mpd/{slug}</code>) in <code>includes/views/frontend/direct.php</code> and <code>includes/views/backend/videos/edit.php</code>.
+                                        <span class="text-bold text-success">Added</span> 24-hour empty-source marking in <code>XVFSParser</code> so upstreams that returned no sources are not re-requested immediately, plus a permanent (24-hour) block for hosts whose extractor class is missing in <code>Core</code>.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Optional Redis instance injection support to <code>CircuitBreaker</code> static methods (<code>isAvailable</code>, <code>recordFailure</code>, <code>recordSuccess</code>) for compatibility with long-running application runtimes (Swoole, RoadRunner, background workers).
+                                        <span class="text-bold text-success">Added</span> slug-based and alternative hash-based direct streaming URL routing (<code>direct/mp4/{slug}</code>, <code>direct/hls/{slug}</code>, <code>direct/mpd/{slug}</code>) in <code>includes/views/frontend/direct.php</code> and <code>includes/views/backend/videos/edit.php</code>.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Circuit Breaker protection to <code>Maxmind::getMaxmindIPInfo</code> to prevent repeated lookups and fallback smoothly when IP info is missing or unavailable.
+                                        <span class="text-bold text-success">Added</span> optional Redis instance injection support to <code>CircuitBreaker</code> static methods (<code>isAvailable</code>, <code>recordFailure</code>, <code>recordSuccess</code>) for compatibility with long-running application runtimes (Swoole, RoadRunner, background workers).
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Added</span> Modular script-bundle widget templates <code>default-frontend-scripts.twig</code> and <code>default-backend-scripts.twig</code> (<code>includes/templates/widget/</code>) extracted from inline footer <code>&lt;script&gt;</code> lists, enabling per-theme overriding of frontend and backend script bundles.
+                                        <span class="text-bold text-success">Added</span> Circuit Breaker protection to <code>Maxmind::getMaxmindIPInfo</code> to prevent repeated lookups and fall back smoothly when IP info is missing or unavailable.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Added</span> modular script-bundle widget templates <code>default-frontend-scripts.twig</code> and <code>default-backend-scripts.twig</code> (<code>includes/templates/widget/</code>) extracted from inline footer <code>&lt;script&gt;</code> lists, enabling per-theme overriding of frontend and backend script bundles.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Added</span> <code>default-header-scripts.twig</code> widget template (<code>includes/templates/widget/</code>) extracting inline header <code>&lt;script&gt;</code> bootstrap variables (jQuery, adminURL, baseURL, vidHosts, themeColors) from <code>header.twig</code> into a reusable, per-theme overridable bundle.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Split the <code>Logger</code> into explicit info/error channels: new <code>Logger::info()</code> and a <code>level</code> field, info written to <code>{host}-{date}.log</code> and errors to <code>{host}-{date}.error.log</code>, 72-hour retention, and protection for server-owned log files; normal events were downgraded from error to info and the <code>trace</code> field now records the real caller.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored <code>CloudflareProxy</code> to accept an injected configuration array/<code>Config</code> instance instead of a <code>PDO</code> connection for reading its settings.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Updated HLS/MPD playlist caching (<code>HLS.php</code>, <code>MPD.php</code>, <code>Stream.php</code>): cache-file path resolution moved into the shared <code>setCacheFile()</code> method and redundant <code>isMP4</code>/<code>isMaster</code> state mutation was removed.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Updated the download script version (<code>JS_DOWNLOAD_VERSION</code>) to <code>3.3.9</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Improved <code>AjaxHelper</code> JSON decoding so form-encoded and JSON-array request payloads are handled correctly, and <code>customJsonDecode()</code> now tolerates whitespace-only input.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Enhanced local subtitle processing (<code>includes/views/frontend/subtitle.php</code>) to directly stream or serve cached WebVTT conversions for local uploads without external HTTP proxy overhead.
@@ -67,10 +100,7 @@
                                         <span class="text-bold text-success">Improved</span> Enhanced <code>Parser.php</code> to support custom poster query parameter (<code>poster</code>) and prioritize pre-set metadata while preserving existing video title and poster fallbacks.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Migrated Ajax file upload handling across controllers (<code>PublicAjax</code>, <code>VideoAjax</code>, <code>VideoImportAjax</code>, <code>VideoSubtitleAjax</code>, <code>SubtitleManager</code>) to PSR-7 <code>UploadedFileInterface</code>.
-                                    </li>
-                                    <li>
-                                        <span class="text-bold text-success">Improved</span> Enhanced <code>Stream::stream</code> routing to conditionally utilize <code>CURLOPT_FILE</code> with <code>php://output</code> on non-Windows platforms when temporary chunk caching (<code>fpChunk</code>) is not active.
+                                        <span class="text-bold text-success">Improved</span> Migrated Ajax file upload handling (<code>PublicAjax</code>, <code>VideoSubtitleAjax</code>, <code>SubtitleManager</code>) to PSR-7 <code>UploadedFileInterface</code> and the <code>Upload</code> service.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Streamlined <code>InstanceCache</code> driver connections (<code>includes/classes/Service/InstanceCache.php</code>) to exclusively support <code>Redis</code>, <code>Predis</code>, and <code>Files</code> (Filesystem) drivers, eliminating legacy drivers (<code>Memcached</code>, <code>Memcache</code>, <code>APCu</code>, <code>SQLite</code>) for optimized high-concurrency performance.
@@ -79,31 +109,28 @@
                                         <span class="text-bold text-success">Improved</span> Bumped player JavaScript runtime to v4.7.1 (<code>public/assets/js/player-v4.7.1.js</code> / <code>.min.js</code>) and updated player CSS (<code>public/assets/css/player-v3.4.0.css</code> / <code>.min.css</code>).
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Refactored video CSV import: moved parsing to frontend using PapaParse (<code>public/assets/vendor/papaparse/5.4.1/papaparse.min.js</code>), batching records into JSON payloads (up to 10 rows per batch) sent to <code>importVideosBatch</code> endpoint, eliminating server-side file uploads, polling overhead, and import cancellation complexity.
+                                        <span class="text-bold text-success">Improved</span> Refactored video CSV import: moved parsing to frontend using PapaParse (<code>public/assets/vendor/papaparse/5.4.1/papaparse.min.js</code>), batching records into JSON payloads (up to 10 rows per batch) sent to the <code>importVideosBatch</code> endpoint, eliminating server-side file uploads, polling overhead, and import cancellation complexity.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Streamlined <code>VideoImportAjaxTrait</code> (<code>includes/classes/Ajax/VideoImportAjaxTrait.php</code>) to focus on single-row JSON validation (<code>validateImportRow()</code>) and removed obsolete CSV extractors.
+                                        <span class="text-bold text-success">Improved</span> Simplified <code>VideoImportAjax</code> to focus on single-row JSON validation (<code>validateImportRow()</code>).
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Updated and minified core dashboard script assets (<code>main-v4.0.1.js</code> / <code>.min.js</code>).
+                                        <span class="text-bold text-success">Improved</span> Updated and minified core dashboard script assets (<code>public/assets/js/main-v4.0.1.js</code> / <code>.min.js</code>).
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Replaced Phpfastcache array-based tag sets (<code>addTags</code>) with versioned cache keys in <code>Model.php</code> (<code>get</code>, <code>getOne</code>, <code>getNumRows</code>, <code>getTotalRows</code>, <code>getWhereIn</code>), reducing Redis memory overhead and avoiding Tag Garbage Collection issues.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Bumped player JavaScript runtime to v4.7.0 (<code>public/assets/js/player-v4.7.0.js</code> / <code>.min.js</code>) and updated asset pipelines in <code>package.json</code> and <code>sw.js</code>.
+                                        <span class="text-bold text-success">Improved</span> Updated circuit breaker cooldown to 60 seconds and failure threshold to 5 across services.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Standardized circuit breaker cooldown (300 seconds) and failure threshold (3) across services.
+                                        <span class="text-bold text-success">Improved</span> Optimized <code>CloudflareProxy</code> settings caching to avoid redundant database reads during high concurrency.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Optimized <code>CloudflareProxy</code> settings caching to prevent redundant database queries under high concurrency.
+                                        <span class="text-bold text-success">Improved</span> Replaced <code>in_array</code> lookups with O(1) hash lookups in hot execution paths.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Replaced <code>in_array</code> lookups with O(1) hash lookups in hot execution loops.
-                                    </li>
-                                    <li>
-                                        <span class="text-bold text-success">Improved</span> Added max retry limits and exponential backoff to background download and extraction loops.
+                                        <span class="text-bold text-success">Improved</span> Added retry limits to background download and extraction loops.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Removed synchronous script loading deferral on player script elements (<code>jwplayer.twig</code>, <code>plyr.twig</code>, <code>body_bottom.twig</code>) to ensure consistent initialization order.
@@ -115,46 +142,88 @@
                                         <span class="text-bold text-success">Improved</span> Merged template-loading context in <code>HTML::renderTemplate()</code> using <code>array_merge</code> in place of <code>array_replace</code> and reordered frontend/backend script bundles ahead of caller-supplied templates so theme overrides win.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Extracted <code>PluginThemeManagerTrait</code> (<code>includes/classes/Service/PluginThemeManagerTrait.php</code>) from <code>PluginManager</code> and <code>ThemeManager</code> to centralize shared plugin/theme file extraction and version-check logic, and refactored <code>Stream::createCacheFilePath()</code> and <code>Setter</code> property initialization for cleaner cache-file path resolution.
+                                        <span class="text-bold text-success">Improved</span> Extracted <code>PluginThemeManagerTrait</code> (<code>includes/classes/Service/PluginThemeManagerTrait.php</code>) from <code>PluginManager</code> and <code>ThemeManager</code> to centralize shared plugin/theme file extraction and version-check logic.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Extracted <code>InstanceCacheTrait</code> (<code>includes/classes/Service/InstanceCacheTrait.php</code>) from <code>InstanceCache</code> to modularize cache driver initialization, tag versioning, and invalidation logic.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Improved</span> Replaced <code>ServerConfigFileUpdater</code> with <code>ServerConfigManager</code> (<code>includes/classes/Service/ServerConfigManager.php</code>) for generating server configuration files (nginx, <code>.htaccess</code>) from Twig templates with prioritized key-order resolution.
+                                        <span class="text-bold text-success">Improved</span> Replaced <code>ServerConfigFileUpdater</code> with <code>ServerConfigManager</code> (<code>includes/classes/Service/ServerConfigManager.php</code>) for generating server configuration files (nginx, <code>.htaccess</code>) from Twig templates with prioritized key-order resolution and file locking.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored <code>Master</code>/<code>Stream</code> request handling: validation and header/source resolution moved into the constructor, cache file selection via <code>setCacheFile()</code>, <code>isDownloadable()</code> renamed to <code>isDownload()</code>, and cURL file handles closed through a shared <code>closeFopen()</code> helper.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Consolidated response header generation in <code>createResponseHeaders()</code> so <code>Cache-Control</code>, <code>CDN-Cache-Control</code>, and <code>Cloudflare-CDN-Cache-Control</code> are always emitted consistently.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored the <code>Background</code> service around an <code>allowDownload</code> flag and a shared <code>getDataVideoByLockKey()</code> helper used by the download workers.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Refactored <code>AntiCaptcha</code> request execution into a shared <code>execCurl()</code> helper.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Simplified <code>Googlephotos</code> source resolution by removing the duplicate <code>filterResolvedSources()</code> pass and filtering once.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-success">Improved</span> Enhanced <code>Extractor::getNewSources()</code> with <code>User-Agent</code>/<code>Accept-Language</code> headers, a PHP 8.5 <code>curl_close()</code> guard, and de-duplicated sources by comparing the effective/redirect URL.
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Translated video CSV import UI messages in <code>main-v4.0.1.js</code> from Indonesian to English for consistent internationalization.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Fixed</span> Fixed subtitle edit validation and file upload handling in <code>VideoSubtitleAjax.php</code>.
+                                        <span class="text-bold text-danger">Removed</span> Memcached from server status monitoring (<code>SystemInfo.php</code>, <code>server-status.twig</code>) and removed the <code>MEMCACHED_CONFIG</code> definition from <code>config-sample.php</code>.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Fixed</span> Added transient HTTP status codes 408 (Request Timeout) and 504 (Gateway Timeout) to cURL retry handler in <code>Stream.php</code>.
+                                        <span class="text-bold text-danger">Removed</span> the <code>AsyncHelper</code> utility (<code>includes/classes/Helper/AsyncHelper.php</code>) and the targeted single-video background mode (<code>includes/bg_get.php</code>) because the Redis single-flight lock blocked the server upstream.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Fixed</span> Added explicit CDN cache prevention headers (<code>CDN-Cache-Control: no-store</code>, <code>Cloudflare-CDN-Cache-Control: no-store</code>) for error and non-cacheable responses in <code>functions.php</code>.
+                                        <span class="text-bold text-danger">Removed</span> the <code>php://output</code> (<code>CURLOPT_FILE</code>) streaming path in <code>Stream::stream()</code>, standardizing on the cURL header/write callbacks.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Fixed</span> Bypass unnecessary shutdown <code>proc_open</code> execution in Swoole and RoadRunner runtimes.
+                                        <span class="text-bold text-primary">Fixed</span> Fixed ASN insertion into the database that caused SQL errors when MaxMind IP data was missing, by normalizing empty ASN values to <code>null</code> and casting the ASN to an integer.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Fixed</span> Handled cURL handle cleanup safely for PHP 8.5 compatibility in <code>VideoSource</code> and <code>GoogleDriveRestAPI</code>.
+                                        <span class="text-bold text-primary">Fixed</span> Fixed <code>migrate.php</code> and <code>MigrationQueriesCreator.php</code> by casting <code>UUID()</code> results to <code>CHAR(36)</code> for slug generation and guarding the foreign key drop with <code>DROP FOREIGN KEY IF EXISTS</code>.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Fixed</span> Fixed <code>AjaxHelper::__construct()</code> to parse raw JSON request bodies via <code>customJsonDecode()</code> so batched video import payloads reach <code>importVideosBatch</code> instead of being dropped.
+                                        <span class="text-bold text-primary">Fixed</span> Fixed subtitle edit validation and file upload handling in <code>VideoSubtitleAjax.php</code>.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Fixed</span> Fixed <code>VideoImportAjax::persistImportRow()</code> to reject rows whose main <code>video_url</code> fails <code>validateUrl()</code> and to cast <code>id</code> to <code>(int)</code> in the DataTable response.
+                                        <span class="text-bold text-primary">Fixed</span> Added transient HTTP status codes 408 (Request Timeout) and 504 (Gateway Timeout) to the cURL retry handler in <code>Stream.php</code>.
                                     </li>
                                     <li>
-                                        <span class="text-bold text-success">Fixed</span> Fixed Google Drive HLS playback redirect in <code>Master::redirectToOriginalUrl()</code> to set the browser <code>User-Agent</code> header for <code>isGoogleHls()</code> hosts instead of forcing an inline <code>Content-Disposition</code> redirect, and renamed the <code>isDownloadable</code> property to <code>isDownload</code> for consistent download-flag handling across <code>Master.php</code>.
+                                        <span class="text-bold text-primary">Fixed</span> Fixed the <code>Logger</code> <code>trace</code> field to record the actual caller instead of the logger itself after the logger was split into <code>write()</code>.
                                     </li>
-                                </ul>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Added explicit CDN cache prevention headers (<code>CDN-Cache-Control</code>, <code>Cloudflare-CDN-Cache-Control</code>) for error and non-cacheable responses in <code>functions.php</code>, and returned a <code>500</code> with <code>no-store</code> headers on fatal errors in <code>bootstrap.php</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Fixed the shutdown handler in Swoole and RoadRunner runtimes to bypass unnecessary <code>proc_open</code> calls.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Handled cURL handle cleanup safely for PHP 8.5 compatibility in <code>VideoSource</code>, <code>GoogleDriveRestAPI</code>, <code>Extractor</code>, and <code>poster.php</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Fixed <code>AjaxHelper::__construct()</code> to parse raw JSON request bodies via <code>customJsonDecode()</code> so batched video import payloads reach <code>importVideosBatch</code> instead of being dropped.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Fixed <code>VideoImportAjax::persistImportRow()</code> to reject rows whose main <code>video_url</code> fails <code>validateUrl()</code> and to cast <code>id</code> to <code>(int)</code> in the DataTable response.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Fixed Google Drive HLS playback handling in <code>Master</code> by setting the browser <code>User-Agent</code> for <code>isGoogleHls()</code> hosts instead of forcing an inline <code>Content-Disposition</code> redirect, and renamed the <code>isDownloadable</code> property to <code>isDownload</code>.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Fixed <code>poster.php</code> to short-circuit to the placeholder when a host is marked down, add a connection timeout, and record connectivity failures/successes via <code>HostHealth</code> while ignoring self-inflicted <code>CURLE_WRITE_ERROR</code> aborts.
+                                    </li>
+                                    <li>
+                                        <span class="text-bold text-primary">Fixed</span> Fixed stale <code>.pid</code> files not being removed on stop by guarding <code>isRunning()</code>/<code>stopPid()</code> against PID reuse.
+                                    </li>
+                                </ol>
                             </li>
                             <li class="mb-3">
                                 <strong>Sep 19, 2026 (v4.8.6-p5)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> <code>ThemeManager</code> service supporting dynamic active theme resolution, discovery, and automated theme synchronization (<code>syncThemeFile</code>, <code>downloadThemeFile</code>, <code>extractThemeZip</code>).
                                     </li>
@@ -227,44 +296,44 @@
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Prevented redundant re-downloading of existing plugin zip archives in <code>PluginManager::downloadPluginFile()</code> and sync handler.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-3">
                                 <strong>Sep 11, 2026 (v4.8.6-p4)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Prevented ZipArchive::open() empty file deprecation warning in PluginManager by validating file existence and non-zero size before extracting or reading cached zip files.
                                     </li>
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Automatically clean up 0-byte downloaded plugin zip files.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-3">
                                 <strong>Sep 11, 2026 (v4.8.6-p3)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Improved plugin extraction error handling and process locking in PluginManager.
                                     </li>
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Updated .htaccess rewrite rules.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-3">
                                 <strong>Sep 11, 2026 (v4.8.6-p2)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Added MySQL auto-reconnect handling on connection drops (MySQL server has gone away).
                                     </li>
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Added flock file locking mechanism to plugin zip creation in sync handler.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-3">
                                 <strong>Sep 11, 2026 (v4.8.6-p1)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Dedicated BackgroundTrait modularizing Unix/Windows PID process termination and safe graceful signals.
                                     </li>
@@ -283,11 +352,11 @@
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Process ID argument escaping and background daemon process management.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-3">
                                 <strong>Sep 02, 2026 (v4.8.5)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Centralized Cloudflare WARP Proxy service with node and host-based SOCKS5 routing across extractors, Google Drive API, stream proxy, and Headless Chrome.
                                     </li>
@@ -372,11 +441,11 @@
                                     <li>
                                         <span class="text-bold text-danger">Removed</span> The Tube, Gofile Hosts.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-3">
                                 <strong>Aug 8, 2026 (v4.8.4)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Refactored Engine Alive check and updated main JS asset (v3.9.9).
                                     </li>
@@ -392,11 +461,11 @@
                                     <li>
                                         <span class="text-bold text-success">Added</span> Comprehensive system safety and audit documentation.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-3">
                                 <strong>Aug 2, 2026 (v4.8.3)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> PHP disabled functions checker and system alerts in Admin Dashboard.
                                     </li>
@@ -409,11 +478,11 @@
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Removed debug logging in Stream handler and optimized index entry point.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-3">
                                 <strong>Jul 29, 2026 (v4.8.2)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Custom Headers management UI in Admin Settings page and navigation bar.
                                     </li>
@@ -438,11 +507,11 @@
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Sitemap &amp; Database Migration: Updated sitemap.php views and web-migrate.php script handling.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-3">
                                 <strong>Jul 26, 2026 (v4.8.1)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Plugin System with support for dynamic view overrides and webhook synchronization.
                                     </li>
@@ -491,17 +560,17 @@
                                     <li>
                                         <span class="text-bold text-danger">Downgraded</span> HTTP protocol from HTTP/2 to HTTP/1.1 due to stability issues.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-2">
                                 <strong>May 01, 2020 (v1.0.0)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Initial release of GDPlayer.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
-                        </ul>
+                        </ol>
                     </div>
                 </div>
             </div>
@@ -516,10 +585,10 @@
                 </div>
                 <div id="collapseSwoole" class="collapse" aria-labelledby="headingSwoole" data-parent="#changelogAccordion">
                     <div class="card-body">
-                        <ul class="list-unstyled mb-0">
+                        <ol class="list-unstyled mb-0">
                             <li class="mb-2">
                                 <strong>Oct 02, 2026 (v0.0.8)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Swoole extension and <code>swoole-cli.exe</code> presence check before starting daemon in <code>swoole-bg.php</code> and backend config view.
                                     </li>
@@ -595,11 +664,11 @@
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Renamed crash log function to camelCase <code>swooleCrashLog</code>.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-2">
                                 <strong>Sep 19, 2026 (v0.0.7)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> <code>SwooleCircuitBreaker</code> service (<code>src/SwooleCircuitBreaker.php</code>) protecting against cascading upstream HTTP 404 / 5xx failures with automatic trip and cool-off recovery.
                                     </li>
@@ -624,11 +693,11 @@
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Imported <code>GDPlayer\Logging\Logger</code> directly in <code>swoole-bg.php</code> to clean up FQCN usages.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-2">
                                 <strong>Sep 11, 2026 (v0.0.6)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Single-instance concurrency guard using <code>flock</code> in background monitor daemon (<code>swoole-bg.php</code>).
                                     </li>
@@ -662,22 +731,22 @@
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> process ID handling and <code>.pid</code> file cleanup on worker reload and shutdown.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-2">
                                 <strong>Sep 09, 2026 (v0.0.5)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Distribution and deployment documentation (<code>GIT-DISTRIBUTION.md</code>).
                                     </li>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Refactored process termination logic in <code>control.php</code> and optimized Swoole worker reload sequence.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-2">
                                 <strong>Aug 27, 2026 (v0.0.4)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Open-source and commercial distribution guides and deployment documentation.
                                     </li>
@@ -717,11 +786,11 @@
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Improved proxy server startup error handling and background process shutdown.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-2">
                                 <strong>Aug 08, 2026 (v0.0.3)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Cloudflare rate-limit bypass and <code>X-Content-Length</code> response header for chunked encoding responses.
                                     </li>
@@ -740,11 +809,11 @@
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Background service cleanup across different operating system environments.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-2">
                                 <strong>Aug 02, 2026 (v0.0.2)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Dynamic DB/Redis configuration management in <code>SwooleHandler</code>.
                                     </li>
@@ -757,11 +826,11 @@
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Resolved live stream video caching logic, direct host redirect flow, and cURL connection reuse.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-2">
                                 <strong>Jul 08, 2026 (v0.0.1)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Initial Release.
                                     </li>
@@ -774,9 +843,9 @@
                                     <li>
                                         <span class="text-bold text-success">Added</span> Built-in system resource monitor (Free RAM checker on start) and clean runtime logs.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
-                        </ul>
+                        </ol>
                     </div>
                 </div>
             </div>
@@ -791,10 +860,10 @@
                 </div>
                 <div id="collapseRoadrunner" class="collapse" aria-labelledby="headingRoadrunner" data-parent="#changelogAccordion">
                     <div class="card-body">
-                        <ul class="list-unstyled mb-0">
+                        <ol class="list-unstyled mb-0">
                             <li class="mb-2">
                                 <strong>Oct 02, 2026 (v0.0.5)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> <code>RoadRunnerConfigLoader</code> — per-request settings via a short-TTL Redis cache; admin changes now apply without restarting the worker.
                                     </li>
@@ -846,11 +915,11 @@
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Introduced <code>RoadRunnerFunctions</code> helper class and streamlined service control routing.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-2">
                                 <strong>Aug 27, 2026 (v0.0.4)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Open-source and commercial distribution guides and deployment documentation.
                                     </li>
@@ -863,11 +932,11 @@
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Stream resolver stability, background worker lifecycle, and package dependencies.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-2">
                                 <strong>Aug 23, 2026 (v0.0.4)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Background daemon runner process checking combining PID status and un-cached engine ping validation.
                                     </li>
@@ -886,11 +955,11 @@
                                     <li>
                                         <span class="text-bold text-success">Improved</span> Enhanced background service process validation and graceful termination.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-2">
                                 <strong>Aug 8, 2026 (v0.0.3)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Cloudflare rate-limit bypass and engine check improvements.
                                     </li>
@@ -903,11 +972,11 @@
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Background service cleanup across different operating system environments.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-2">
                                 <strong>Aug 2, 2026 (v0.0.2)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Dynamic worker daemon runner and optimized <code>.rr.json</code> configurations.
                                     </li>
@@ -917,11 +986,11 @@
                                     <li>
                                         <span class="text-bold text-primary">Fixed</span> Refactored background monitor logging and dynamic configuration options.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
                             <li class="mb-2">
                                 <strong>Jul 8, 2026 (v0.0.1)</strong>
-                                <ul>
+                                <ol>
                                     <li>
                                         <span class="text-bold text-success">Added</span> Initial Release.
                                     </li>
@@ -934,9 +1003,9 @@
                                     <li>
                                         <span class="text-bold text-success">Added</span> Optimize remote video source configurations and strict HTTP/1.1 protocol controls.
                                     </li>
-                                </ul>
+                                </ol>
                             </li>
-                        </ul>
+                        </ol>
                     </div>
                 </div>
             </div>
