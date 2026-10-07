@@ -33,7 +33,7 @@ Theme hanya menyediakan override halaman frontend. Routing utama tetap melalui `
 
 ```
 Priority chain:
-1. Plugin override → PluginManager::dispatchPluginPage()
+1. Plugin routes → PluginRouteRegistry::resolve() (tb_plugin_routes, fallback plugin.json)
 2. Active theme → {theme}/frontend/views/{page}.php
 3. Core fallback → includes/views/frontend/{page}.php
 ```
